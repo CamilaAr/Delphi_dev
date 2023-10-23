@@ -1,0 +1,79 @@
+unit FormProdutos;
+
+interface
+
+uses
+  SysUtils, Classes, Data.DB, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.Stan.Param;
+
+type
+  TFormProdutos = class(TForm)
+  private
+    FDConnection: TFDConnection;
+
+  public
+    constructor Create(AOwner: TComponent; Connection: TFDConnection);
+    procedure AdicionarProduto(Nome: string; Preco: Currency);
+    procedure EditarProduto(ID: Integer; Nome: string; Preco: Currency);
+    procedure RemoverProduto(ID: Integer);
+  end;
+
+implementation
+
+{ TFormProdutos }
+
+constructor TFormProdutos.Create(AOwner: TComponent; Connection: TFDConnection);
+begin
+  inherited Create(AOwner);
+  FDConnection := Connection;
+end;
+
+procedure TFormProdutos.AdicionarProduto(Nome: string; Preco: Currency);
+var
+  FDQuery: TFDQuery;
+begin
+  FDQuery := TFDQuery.Create(nil);
+  try
+    FDQuery.Connection := FDConnection;
+    FDQuery.SQL.Text := 'INSERT INTO Produtos (Nome, Preco) VALUES (:Nome, :Preco)';
+    FDQuery.ParamByName('Nome').AsString := Nome;
+    FDQuery.ParamByName('Preco').AsCurrency := Preco;
+    FDQuery.ExecSQL;
+  finally
+    FDQuery.Free;
+  end;
+end;
+
+procedure TFormProdutos.EditarProduto(ID: Integer; Nome: string; Preco: Currency);
+var
+  FDQuery: TFDQuery;
+begin
+  FDQuery := TFDQuery.Create(nil);
+  try
+    FDQuery.Connection := FDConnection;
+    FDQuery.SQL.Text := 'UPDATE Produtos SET Nome = :Nome, Preco = :Preco WHERE ID = :ID';
+    FDQuery.ParamByName('ID').AsInteger := ID;
+    FDQuery.ParamByName('Nome').AsString := Nome;
+    FDQuery.ParamByName('Preco').AsCurrency := Preco;
+    FDQuery.ExecSQL;
+  finally
+    FDQuery.Free;
+  end;
+end;
+
+procedure TFormProdutos.RemoverProduto(ID: Integer);
+var
+  FDQuery: TFDQuery;
+begin
+  FDQuery := TFDQuery.Create(nil);
+  try
+    FDQuery.Connection := FDConnection;
+    FDQuery.SQL.Text := 'DELETE FROM Produtos WHERE ID = :ID';
+    FDQuery.ParamByName('ID').AsInteger := ID;
+    FDQuery.ExecSQL;
+  finally
+    FDQuery.Free;
+  end;
+end;
+
+end.
+

@@ -1,0 +1,18 @@
+program principal;
+
+uses
+  Vcl.Forms,
+  Delphi_dev in 'Delphi_dev.pas' {Form2},
+  d in 'd.pas' {DataModule1: TDataModule},
+  DataModule in 'DataModule.pas' {DataMod: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.CreateForm(TDataMod, DataMod);
+  Application.Run;
+end.

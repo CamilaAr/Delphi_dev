@@ -1,0 +1,92 @@
+unit Delphi_dev;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.DBCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.StdCtrls;
+
+type
+  TForm2 = class(TForm)
+    prodGrid: TDBGrid;
+    edt_Grid: TEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure edt_GridChange(Sender: TObject);
+
+  private
+    function BuildFilterExpression(DataSet: TDataSet;
+      searchTerm: string): string;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+uses DM;
+
+procedure TForm2.edt_GridChange(Sender: TObject);
+begin
+  // Obtém o termo de pesquisa do Edit
+  var searchTerm := edt_Grid.Text;
+
+  // Verifica se há um termo de pesquisa
+  if not string.IsNullOrWhiteSpace(searchTerm) then
+  begin
+    // Aplica o filtro às colunas do DataSet associado ao DataSource do DBGrid
+    if Assigned(ProdGrid.DataSource) then
+    begin
+      var DataSet := (ProdGrid.DataSource.DataSet as TDataSet);
+      DataSet.Filtered := False; // Certifica-se de que o filtro anterior seja limpo
+      DataSet.Filter := BuildFilterExpression(DataSet, searchTerm);
+      DataSet.Filtered := True;
+    end;
+  end
+  else
+  begin
+    // Se o campo de pesquisa estiver vazio, limpa o filtro
+    var DataSet := (ProdGrid.DataSource.DataSet as TDataSet);
+    DataSet.Filtered := False;
+  end;
+end;
+
+
+function TForm2.BuildFilterExpression(DataSet: TDataSet; searchTerm: string): string;
+var
+  i: Integer;
+  filterExpression: string;
+begin
+  filterExpression := '';
+  searchTerm := '%' + searchTerm + '%'; // Adicione % no início e no final para pesquisa parcial
+  for i := 0 to DataSet.FieldCount - 1 do
+  begin
+    if i > 0 then
+      filterExpression := filterExpression + ' or ';
+    filterExpression := filterExpression + Format('%s like ''%s''', [DataSet.Fields[i].FieldName, searchTerm]);
+  end;
+  Result := filterExpression;
+end;
+
+
+
+
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+
+   // DataMod.QRY_Prod.Open;
+
+end;
+
+
+
+end.

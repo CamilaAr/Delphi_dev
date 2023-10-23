@@ -1,0 +1,48 @@
+unit Delphi_dev;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.DBCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TForm2 = class(TForm)
+    DBGrid1: TDBGrid;
+    procedure FormCreate(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+uses DM;
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+
+
+
+  try
+    DataMod.QRY_Prod.Open;
+  except
+    on E: Exception do
+      ShowMessage('Erro: ' + E.Message);
+  end;
+
+end;
+
+
+
+end.

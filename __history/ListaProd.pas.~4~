@@ -1,0 +1,76 @@
+unit ListaProd;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Grids,
+  Vcl.DBGrids;
+
+type
+    TListaProdutos = class(TForm)
+    prodGrid: TDBGrid;
+    edt_Grid: TEdit;
+    procedure edt_GridChange(Sender: TObject);
+  private
+    function BuildFilterExpression(DataSet: TDataSet;
+      searchTerm: string): string;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ListaProdutos: TListaProdutos;
+
+implementation
+
+{$R *.dfm}
+
+uses DM;
+
+procedure TListaProdutos.edt_GridChange(Sender: TObject);
+begin
+  // Obtém o termo de pesquisa do Edit
+  var searchTerm := edt_Grid.Text;
+
+  // Verifica se há um termo de pesquisa
+  if not string.IsNullOrWhiteSpace(searchTerm) then
+  begin
+    // Aplica o filtro às colunas do DataSet associado ao DataSource do DBGrid
+    if Assigned(ProdGrid.DataSource) then
+    begin
+      var DataSet := (ProdGrid.DataSource.DataSet as TDataSet);
+      DataSet.Filtered := False; // Certifica-se de que o filtro anterior seja limpo
+      DataSet.Filter := BuildFilterExpression(DataSet, searchTerm);
+      DataSet.Filtered := True;
+    end;
+  end
+  else
+  begin
+    // Se o campo de pesquisa estiver vazio, limpa o filtro
+    var DataSet := (ProdGrid.DataSource.DataSet as TDataSet);
+    DataSet.Filtered := False;
+  end;
+end;
+
+
+function TListaProdutos.BuildFilterExpression(DataSet: TDataSet; searchTerm: string): string;
+var
+  i: Integer;
+  filterExpression: string;
+begin
+  filterExpression := '';
+  searchTerm := '%' + searchTerm + '%'; // Adicione % no início e no final para pesquisa parcial
+  for i := 0 to DataSet.FieldCount - 1 do
+  begin
+    if i > 0 then
+      filterExpression := filterExpression + ' or ';
+    filterExpression := filterExpression + Format('%s like ''%s''', [DataSet.Fields[i].FieldName, searchTerm]);
+  end;
+  Result := filterExpression;
+end;
+
+
+
+end.

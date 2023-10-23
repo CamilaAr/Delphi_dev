@@ -1,0 +1,69 @@
+unit ProdutosDAO;
+
+interface
+
+uses
+  SysUtils, Classes, Data.DB, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.Stan.Param;
+
+type
+  TProdutosDAO = class
+  public
+    class procedure AdicionarProduto(Conn: TFDConnection; Nome: string; Preco: Currency);
+    class procedure EditarProduto(Conn: TFDConnection; ID: Integer; Nome: string; Preco: Currency);
+    class procedure RemoverProduto(Conn: TFDConnection; ID: Integer);
+  end;
+
+implementation
+
+{ TProdutosDAO }
+
+class procedure TProdutosDAO.AdicionarProduto(Conn: TFDConnection; Nome: string; Preco: Currency);
+var
+  FDQuery: TFDQuery;
+begin
+  FDQuery := TFDQuery.Create(nil);
+  try
+    FDQuery.Connection := Conn;
+    FDQuery.SQL.Text := 'INSERT INTO Produtos (Nome, Preco) VALUES (:Nome, :Preco)';
+    FDQuery.ParamByName('Nome').AsString := Nome;
+    FDQuery.ParamByName('Preco').AsCurrency := Preco;
+    FDQuery.ExecSQL;
+  finally
+    FDQuery.Free;
+  end;
+end;
+
+class procedure TProdutosDAO.EditarProduto(Conn: TFDConnection; ID: Integer; Nome: string; Preco: Currency);
+var
+  FDQuery: TFDQuery;
+begin
+  FDQuery := TFDQuery.Create(nil);
+  try
+    FDQuery.Connection := Conn;
+    FDQuery.SQL.Text := 'UPDATE Produtos SET Nome = :Nome, Preco = :Preco WHERE ID = :ID';
+    FDQuery.ParamByName('ID').AsInteger := ID;
+    FDQuery.ParamByName('Nome').AsString := Nome;
+    FDQuery.ParamByName('Preco').AsCurrency := Preco;
+    FDQuery.ExecSQL;
+  finally
+    FDQuery.Free;
+  end;
+end;
+
+class procedure TProdutosDAO.RemoverProduto(Conn: TFDConnection; ID: Integer);
+var
+  FDQuery: TFDQuery;
+begin
+  FDQuery := TFDQuery.Create(nil);
+  try
+    FDQuery.Connection := Conn;
+    FDQuery.SQL.Text := 'DELETE FROM Produtos WHERE Codigo = :Codigo';
+    FDQuery.ParamByName('Codigo').AsInteger := ID;
+    FDQuery.ExecSQL;
+  finally
+    FDQuery.Free;
+  end;
+end;
+
+end.
+

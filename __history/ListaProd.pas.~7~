@@ -1,0 +1,136 @@
+unit ListaProd;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Grids,
+  Vcl.DBGrids;
+
+type
+    TListaProdutos = class(TForm)
+    prodGrid: TDBGrid;
+    edt_Grid: TEdit;
+    procedure edt_GridChange(Sender: TObject);
+    procedure prodGridKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure prodGridDblClick(Sender: TObject);
+  private
+    function BuildFilterExpression(DataSet: TDataSet;
+      searchTerm: string): string;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ListaProdutos: TListaProdutos;
+
+implementation
+
+{$R *.dfm}
+
+uses DM, ProdutosDAO;
+
+procedure TListaProdutos.edt_GridChange(Sender: TObject);
+begin
+  // Obtém o termo de pesquisa do Edit
+  var searchTerm := edt_Grid.Text;
+
+  // Verifica se há um termo de pesquisa
+  if not string.IsNullOrWhiteSpace(searchTerm) then
+  begin
+    // Aplica o filtro às colunas do DataSet associado ao DataSource do DBGrid
+    if Assigned(ProdGrid.DataSource) then
+    begin
+      var DataSet := (ProdGrid.DataSource.DataSet as TDataSet);
+      DataSet.Filtered := False; // Certifica-se de que o filtro anterior seja limpo
+      DataSet.Filter := BuildFilterExpression(DataSet, searchTerm);
+      DataSet.Filtered := True;
+    end;
+  end
+  else
+  begin
+    // Se o campo de pesquisa estiver vazio, limpa o filtro
+    var DataSet := (ProdGrid.DataSource.DataSet as TDataSet);
+    DataSet.Filtered := False;
+  end;
+end;
+
+
+procedure TListaProdutos.prodGridDblClick(Sender: TObject);
+begin
+var
+  Codigo: Integer;
+begin
+  // Manipulador de evento para edição ao clicar duas vezes
+  if not prodGrid.DataSource.DataSet.IsEmpty then
+  begin
+    // Obtenha o valor do campo "Codigo" da linha selecionada
+    Codigo := prodGrid.DataSource.DataSet.FieldByName('Codigo').AsInteger;
+
+    // Chame o método do DAO para carregar os dados do produto pelo Codigo
+    var Produto := TProdutosDAO. GetProdutoByID(DataMod.conect,Codigo);
+
+    if Produto <> nil then
+    begin
+      // Abra um formulário de edição de produto passando os dados do produto carregados
+      var FormEdicao := TFormEdicaoProduto.Create(Self);
+      try
+        FormEdicao.EditarProduto(Produto);
+        if FormEdicao.ShowModal = mrOK then
+        begin
+          // Se as alterações forem confirmadas no formulário de edição, atualize o banco de dados
+          DataMod.ProdutosDAO.AtualizarProduto(Codigo, Produto.Descricao, Produto.PrecoVenda);
+        end;
+      finally
+        FormEdicao.Free;
+      end;
+    end;
+  end;
+end;
+
+procedure TListaProdutos.prodGridKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  // Manipulador de evento para exclusão ao pressionar "Delete"
+  if (Key = VK_DELETE) and (prodGrid.SelectedRows.Count = 0) then
+  begin
+    if not prodGrid.DataSource.DataSet.IsEmpty then
+    begin
+      // Obtenha o valor do campo "Codigo" da linha selecionada
+      var Codigo := prodGrid.DataSource.DataSet.FieldByName('Codigo').AsInteger;
+
+      // Confirmação antes da exclusão (opcional)
+      if MessageDlg('Deseja excluir este produto?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      begin
+        // Chame o método do DAO para excluir o produto pelo Codigo
+        TProdutosDAO.RemoverProduto(DataMod.conect, Codigo );
+        // Recarregue os dados no DBGrid para refletir a exclusão
+        prodGrid.DataSource.DataSet.Refresh;
+      end;
+    end;
+  end;
+end;
+
+function TListaProdutos.BuildFilterExpression(DataSet: TDataSet; searchTerm: string): string;
+var
+  i: Integer;
+  filterExpression: string;
+begin
+  filterExpression := '';
+  searchTerm := '%' + searchTerm + '%'; // Adicione % no início e no final para pesquisa parcial
+  for i := 0 to DataSet.FieldCount - 1 do
+  begin
+    if i > 0 then
+      filterExpression := filterExpression + ' or ';
+    filterExpression := filterExpression + Format('%s like ''%s''', [DataSet.Fields[i].FieldName, searchTerm]);
+  end;
+  Result := filterExpression;
+end;
+
+
+
+
+
+end.

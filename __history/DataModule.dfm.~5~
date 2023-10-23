@@ -1,0 +1,15 @@
+object DataMod: TDataMod
+  Height = 480
+  Width = 640
+  object FDConnection1: TFDConnection
+    Params.Strings = (
+      'DriverID=MySQL')
+    Left = 232
+    Top = 136
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    VendorLib = 'C:\Users\camila\Documents\Delphi_dev\libmariadb.dll'
+    Left = 304
+    Top = 224
+  end
+end

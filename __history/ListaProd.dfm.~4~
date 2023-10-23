@@ -1,0 +1,56 @@
+object ListaProdutos: TListaProdutos
+  Left = 0
+  Top = 0
+  Caption = 'ListaProdutos'
+  ClientHeight = 442
+  ClientWidth = 628
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object prodGrid: TDBGrid
+    Left = 0
+    Top = 115
+    Width = 628
+    Height = 327
+    Align = alBottom
+    DataSource = DataMod.DS_Prod
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+    OnDblClick = prodGridDblClick
+    OnKeyDown = prodGridKeyDown
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Codigo'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Descricao'
+        Width = 613
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PrecoVenda'
+        Visible = True
+      end>
+  end
+  object edt_Grid: TEdit
+    Left = 8
+    Top = 86
+    Width = 121
+    Height = 23
+    TabOrder = 1
+    OnChange = edt_GridChange
+  end
+end

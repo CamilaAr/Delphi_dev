@@ -1,0 +1,32 @@
+object DataMod: TDataMod
+  Height = 480
+  Width = 640
+  object conexao: TFDConnection
+    Params.Strings = (
+      'Database=lojateste'
+      'User_Name=root'
+      'Password=1234'
+      'DriverID=MySQL')
+    LoginPrompt = False
+    Left = 32
+    Top = 40
+  end
+  object MySqlLink: TFDPhysMySQLDriverLink
+    DriverID = 'MySQL'
+    VendorLib = 'C:\Users\camila\Documents\Delphi_dev\libmysql.dll'
+    Left = 304
+    Top = 224
+  end
+  object WaitCursor: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 520
+    Top = 272
+  end
+  object SQL_Prod: TFDQuery
+    Connection = conexao
+    SQL.Strings = (
+      'select * from produtos')
+    Left = 512
+    Top = 128
+  end
+end
