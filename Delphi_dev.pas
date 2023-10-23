@@ -13,8 +13,10 @@ uses
 type
   TPrincip = class(TForm)
     Button1: TButton;
+    btnVenda: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure btnVendaClick(Sender: TObject);
 
 
   private
@@ -31,17 +33,27 @@ implementation
 
 {$R *.dfm}
 
-uses ListaProd, ClientesDAO,  DM;
+uses ListaProd, ClientesDAO,  DM, venda;
 
 
 
 
 
+
+procedure TPrincip.btnVendaClick(Sender: TObject);
+var
+  FormVenda: TForm1;
+begin
+  FormVenda := TForm1.Create(Application);
+  FormVenda.ShowModal;
+  FormVenda.Free;
+end;
 
 procedure TPrincip.Button1Click(Sender: TObject);
 var
   ClienteID: String;
   FormLP: TListaProdutos;
+
 
 begin
   ClienteID := '0';

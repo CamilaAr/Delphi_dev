@@ -14,12 +14,21 @@ object Princip: TPrincip
   OnCreate = FormCreate
   TextHeight = 15
   object Button1: TButton
-    Left = 104
-    Top = 80
+    Left = 24
+    Top = 40
     Width = 177
     Height = 57
-    Caption = 'Button1'
+    Caption = 'Produtos'
     TabOrder = 0
     OnClick = Button1Click
+  end
+  object btnVenda: TButton
+    Left = 216
+    Top = 40
+    Width = 177
+    Height = 57
+    Caption = 'Venda'
+    TabOrder = 1
+    OnClick = btnVendaClick
   end
 end

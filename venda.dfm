@@ -10,8 +10,9 @@ object Form1: TForm1
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
   TextHeight = 15
-  object pedidoGrid: TDBGrid
+  object DBGrid1: TDBGrid
     Left = 0
     Top = 115
     Width = 628
@@ -43,11 +44,64 @@ object Form1: TForm1
         Visible = True
       end>
   end
-  object pesq_Grid: TEdit
-    Left = 8
-    Top = 86
+  object edtDataEmissao: TEdit
+    Left = 0
+    Top = 8
     Width = 121
     Height = 23
     TabOrder = 1
+  end
+  object edtCodigoCliente: TEdit
+    Left = 152
+    Top = 8
+    Width = 121
+    Height = 23
+    TabOrder = 2
+  end
+  object edtNumeroPedido: TEdit
+    Left = 312
+    Top = 8
+    Width = 121
+    Height = 23
+    TabOrder = 3
+  end
+  object edtCodigoProduto: TEdit
+    Left = 464
+    Top = 8
+    Width = 121
+    Height = 23
+    TabOrder = 4
+  end
+  object edtQuantidade: TEdit
+    Left = 0
+    Top = 37
+    Width = 121
+    Height = 23
+    TabOrder = 5
+  end
+  object edtValorUnitario: TEdit
+    Left = 152
+    Top = 37
+    Width = 121
+    Height = 23
+    TabOrder = 6
+  end
+  object btnInserirPedido: TBitBtn
+    Left = 312
+    Top = 48
+    Width = 89
+    Height = 41
+    Caption = 'Inserir Pedido'
+    TabOrder = 7
+    OnClick = btnInserirPedidoClick
+  end
+  object btnInserirProduto: TBitBtn
+    Left = 424
+    Top = 48
+    Width = 89
+    Height = 41
+    Caption = 'Inserir Produto'
+    TabOrder = 8
+    OnClick = btnInserirProdutoClick
   end
 end

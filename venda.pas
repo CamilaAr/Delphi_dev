@@ -5,12 +5,22 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Grids,
-  Vcl.DBGrids;
+  Vcl.DBGrids, Vcl.Buttons, PedidosGeraisDAO, PedidosProdutosDAO;
 
 type
   TForm1 = class(TForm)
-    pedidoGrid: TDBGrid;
-    pesq_Grid: TEdit;
+    DBGrid1: TDBGrid;
+    edtDataEmissao: TEdit;
+    edtCodigoCliente: TEdit;
+    edtNumeroPedido: TEdit;
+    edtCodigoProduto: TEdit;
+    edtQuantidade: TEdit;
+    edtValorUnitario: TEdit;
+    btnInserirPedido: TBitBtn;
+    btnInserirProduto: TBitBtn;
+    procedure btnInserirPedidoClick(Sender: TObject);
+    procedure btnInserirProdutoClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -24,5 +34,46 @@ var
 implementation
 
 {$R *.dfm}
+
+uses DM;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  edtDataEmissao.Text := DateToStr(Date);
+end;
+
+procedure TForm1.btnInserirPedidoClick(Sender: TObject);
+var
+  DataEmissao: TDate;
+  CodigoCliente: Integer;
+  ValorTotal: Currency;
+  NumeroPedido: Integer;
+begin
+  DataEmissao := StrToDate(edtDataEmissao.Text);
+  CodigoCliente := StrToInt(edtCodigoCliente.Text);
+  ValorTotal := 0;
+
+  TPedidosGeraisDAO.InserirPedidoGeral(DataMod.conect, DataEmissao, CodigoCliente, ValorTotal);
+  
+end;
+
+procedure TForm1.btnInserirProdutoClick(Sender: TObject);
+var
+  NumeroPedido, CodigoProduto, Quantidade: Integer;
+  ValorUnitario, ValorTotal: Currency;
+begin
+{  NumeroPedido := StrToInt(edtNumeroPedido.Text);
+  CodigoProduto := StrToInt(edtCodigoProduto.Text);
+  Quantidade := StrToInt(edtQuantidade.Text);
+  ValorUnitario := StrToCurr(edtValorUnitario.Text);
+  ValorTotal := Quantidade * ValorUnitario;
+
+  TPedidosProdutosDAO.InserirPedidoProduto(DataMod.conect, NumeroPedido, CodigoProduto, Quantidade, ValorUnitario, ValorTotal);
+
+  // Atualize o DBGrid após inserir o produto no pedido
+  DataMod.PedidosProdutosDataSet.Refresh;
+end;
+ }
+end;
 
 end.
