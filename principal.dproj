@@ -143,6 +143,11 @@
             <Form>F_Clientes</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="U_Funcoes.pas"/>
+        <DCCReference Include="U_Produtos.pas">
+            <Form>F_Produtos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

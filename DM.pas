@@ -20,6 +20,21 @@ type
     QRY_ProdDescricao: TStringField;
     QRY_ProdPrecoVenda: TBCDField;
     DS_Prod: TDataSource;
+    tb_prod: TFDTable;
+    tb_prodCodigo: TFDAutoIncField;
+    tb_prodDescricao: TStringField;
+    tb_prodPrecoVenda: TBCDField;
+    QRY_Cli: TFDQuery;
+    QRY_CliCodigo: TFDAutoIncField;
+    QRY_CliNome: TStringField;
+    QRY_CliCidade: TStringField;
+    QRY_CliUF: TStringField;
+    tb_cli: TFDTable;
+    tb_cliCodigo: TFDAutoIncField;
+    tb_cliNome: TStringField;
+    tb_cliCidade: TStringField;
+    tb_cliUF: TStringField;
+    DS_Cli: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

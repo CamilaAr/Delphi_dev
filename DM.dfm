@@ -28,8 +28,8 @@ object DataMod: TDataMod
     Connection = conect
     SQL.Strings = (
       'select * from produtos ')
-    Left = 96
-    Top = 96
+    Left = 16
+    Top = 112
     object QRY_ProdCodigo: TFDAutoIncField
       FieldName = 'Codigo'
       Origin = 'Codigo'
@@ -53,7 +53,101 @@ object DataMod: TDataMod
   end
   object DS_Prod: TDataSource
     DataSet = QRY_Prod
-    Left = 24
-    Top = 96
+    Left = 112
+    Top = 112
+  end
+  object tb_prod: TFDTable
+    IndexFieldNames = 'Codigo'
+    Connection = conect
+    ResourceOptions.AssignedValues = [rvEscapeExpand]
+    TableName = 'lojateste.produtos'
+    Left = 64
+    Top = 112
+    object tb_prodCodigo: TFDAutoIncField
+      FieldName = 'Codigo'
+      Origin = 'Codigo'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object tb_prodDescricao: TStringField
+      FieldName = 'Descricao'
+      Origin = 'Descricao'
+      Required = True
+      Size = 255
+    end
+    object tb_prodPrecoVenda: TBCDField
+      FieldName = 'PrecoVenda'
+      Origin = 'PrecoVenda'
+      Required = True
+      Precision = 10
+      Size = 2
+    end
+  end
+  object QRY_Cli: TFDQuery
+    Connection = conect
+    SQL.Strings = (
+      'select * from clientes')
+    Left = 16
+    Top = 176
+    object QRY_CliCodigo: TFDAutoIncField
+      FieldName = 'Codigo'
+      Origin = 'Codigo'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object QRY_CliNome: TStringField
+      FieldName = 'Nome'
+      Origin = 'Nome'
+      Required = True
+      Size = 255
+    end
+    object QRY_CliCidade: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Cidade'
+      Origin = 'Cidade'
+      Size = 100
+    end
+    object QRY_CliUF: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+  end
+  object tb_cli: TFDTable
+    IndexFieldNames = 'Codigo'
+    Connection = conect
+    ResourceOptions.AssignedValues = [rvEscapeExpand]
+    TableName = 'lojateste.clientes'
+    Left = 64
+    Top = 176
+    object tb_cliCodigo: TFDAutoIncField
+      FieldName = 'Codigo'
+      Origin = 'Codigo'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object tb_cliNome: TStringField
+      FieldName = 'Nome'
+      Origin = 'Nome'
+      Required = True
+      Size = 255
+    end
+    object tb_cliCidade: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Cidade'
+      Origin = 'Cidade'
+      Size = 100
+    end
+    object tb_cliUF: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+  end
+  object DS_Cli: TDataSource
+    DataSet = QRY_Cli
+    Left = 112
+    Top = 176
   end
 end
