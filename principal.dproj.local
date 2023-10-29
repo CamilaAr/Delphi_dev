@@ -2,32 +2,43 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2023/10/22 20:05:28.000.504,=C:\Users\camila\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2023/10/22 20:06:36.000.773,C:\Users\camila\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\camila\Documents\Delphi_dev\Delphi_dev.pas</Transaction>
-    <Transaction>2023/10/22 20:06:36.000.773,C:\Users\camila\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\camila\Documents\Delphi_dev\Delphi_dev.dfm</Transaction>
-    <Transaction>2023/10/22 20:06:46.000.946,C:\Users\camila\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\Users\camila\Documents\Delphi_dev\principal.dproj</Transaction>
+    <Transaction>2023/10/22 20:06:36.000.773,C:\Users\camila\Documents\Delphi_dev\Delphi_dev.dfm=C:\Users\camila\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2023/10/22 20:06:36.000.773,C:\Users\camila\Documents\Delphi_dev\Delphi_dev.pas=C:\Users\camila\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/10/22 20:06:46.000.946,C:\Users\camila\Documents\Delphi_dev\principal.dproj=C:\Users\camila\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
     <Transaction>2023/10/22 22:06:31.000.672,=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
     <Transaction>2023/10/22 22:28:16.000.397,=C:\Users\camila\Documents\Delphi_dev\DataModule.pas</Transaction>
-    <Transaction>2023/10/22 22:28:29.000.991,C:\Users\camila\Documents\Delphi_dev\d.dfm=C:\Users\camila\Documents\Delphi_dev\Unit1.dfm</Transaction>
-    <Transaction>2023/10/22 22:28:29.000.991,C:\Users\camila\Documents\Delphi_dev\d.pas=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
-    <Transaction>2023/10/23 02:13:27.000.388,C:\Users\camila\Documents\Delphi_dev\DataModule.pas=C:\Users\camila\Documents\Delphi_dev\DM.pas</Transaction>
-    <Transaction>2023/10/23 02:13:27.000.388,C:\Users\camila\Documents\Delphi_dev\DataModule.dfm=C:\Users\camila\Documents\Delphi_dev\DM.dfm</Transaction>
+    <Transaction>2023/10/22 22:28:29.000.991,C:\Users\camila\Documents\Delphi_dev\Unit1.pas=C:\Users\camila\Documents\Delphi_dev\d.pas</Transaction>
+    <Transaction>2023/10/22 22:28:29.000.991,C:\Users\camila\Documents\Delphi_dev\Unit1.dfm=C:\Users\camila\Documents\Delphi_dev\d.dfm</Transaction>
+    <Transaction>2023/10/23 02:13:27.000.388,C:\Users\camila\Documents\Delphi_dev\DM.dfm=C:\Users\camila\Documents\Delphi_dev\DataModule.dfm</Transaction>
+    <Transaction>2023/10/23 02:13:27.000.388,C:\Users\camila\Documents\Delphi_dev\DM.pas=C:\Users\camila\Documents\Delphi_dev\DataModule.pas</Transaction>
     <Transaction>2023/10/23 02:43:05.000.907,=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
-    <Transaction>2023/10/23 02:44:54.000.871,C:\Users\camila\Documents\Delphi_dev\Unit1.pas=C:\Users\camila\Documents\Delphi_dev\FormProdutos.pas</Transaction>
-    <Transaction>2023/10/23 02:46:13.000.388,C:\Users\camila\Documents\Delphi_dev\FormProdutos.pas=C:\Users\camila\Documents\Delphi_dev\ProdutosDAO.pas</Transaction>
+    <Transaction>2023/10/23 02:44:54.000.871,C:\Users\camila\Documents\Delphi_dev\FormProdutos.pas=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
+    <Transaction>2023/10/23 02:46:13.000.388,C:\Users\camila\Documents\Delphi_dev\ProdutosDAO.pas=C:\Users\camila\Documents\Delphi_dev\FormProdutos.pas</Transaction>
     <Transaction>2023/10/23 02:47:21.000.334,=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
-    <Transaction>2023/10/23 02:48:44.000.993,C:\Users\camila\Documents\Delphi_dev\Unit1.dfm=C:\Users\camila\Documents\Delphi_dev\ListaProd.dfm</Transaction>
-    <Transaction>2023/10/23 02:48:44.000.993,C:\Users\camila\Documents\Delphi_dev\Unit1.pas=C:\Users\camila\Documents\Delphi_dev\ListaProd.pas</Transaction>
+    <Transaction>2023/10/23 02:48:44.000.993,C:\Users\camila\Documents\Delphi_dev\ListaProd.pas=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
+    <Transaction>2023/10/23 02:48:44.000.993,C:\Users\camila\Documents\Delphi_dev\ListaProd.dfm=C:\Users\camila\Documents\Delphi_dev\Unit1.dfm</Transaction>
     <Transaction>2023/10/23 02:58:16.000.301,C:\Users\camila\Documents\Delphi_dev\d.pas=</Transaction>
-    <Transaction>2023/10/23 03:50:27.368,=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
-    <Transaction>2023/10/23 03:52:36.724,C:\Users\camila\Documents\Delphi_dev\FormEdicaoProduto.pas=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
-    <Transaction>2023/10/23 03:52:36.724,C:\Users\camila\Documents\Delphi_dev\FormEdicaoProduto.dfm=C:\Users\camila\Documents\Delphi_dev\Unit1.dfm</Transaction>
-    <Transaction>2023/10/23 04:12:56.912,C:\Users\camila\Documents\Delphi_dev\FormEdicaoProduto.pas=</Transaction>
-  </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <Transaction>2023/10/23 03:50:27.000.368,=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
+    <Transaction>2023/10/23 03:52:36.000.724,C:\Users\camila\Documents\Delphi_dev\Unit1.pas=C:\Users\camila\Documents\Delphi_dev\FormEdicaoProduto.pas</Transaction>
+    <Transaction>2023/10/23 03:52:36.000.724,C:\Users\camila\Documents\Delphi_dev\Unit1.dfm=C:\Users\camila\Documents\Delphi_dev\FormEdicaoProduto.dfm</Transaction>
+    <Transaction>2023/10/23 04:12:56.000.912,C:\Users\camila\Documents\Delphi_dev\FormEdicaoProduto.pas=</Transaction>
+    <Transaction>2023/10/28 16:29:47.201,C:\Users\camila\Documents\Delphi_dev\Venda.pas=C:\Users\camila\Documents\Delphi_dev\Delphi_dev.pas</Transaction>
+    <Transaction>2023/10/28 16:29:47.201,C:\Users\camila\Documents\Delphi_dev\Venda.dfm=C:\Users\camila\Documents\Delphi_dev\Delphi_dev.dfm</Transaction>
+    <Transaction>2023/10/28 16:29:47.232,C:\Users\camila\Documents\Delphi_dev\Delphi_dev.pas=C:\Users\camila\Documents\Delphi_dev\Venda.pas</Transaction>
+    <Transaction>2023/10/28 16:29:47.232,C:\Users\camila\Documents\Delphi_dev\Delphi_dev.dfm=C:\Users\camila\Documents\Delphi_dev\Venda.dfm</Transaction>
+    <Transaction>2023/10/28 17:28:58.540,=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
+    <Transaction>2023/10/28 17:39:26.227,C:\Users\camila\Documents\Delphi_dev\U_Clientes.dfm=C:\Users\camila\Documents\Delphi_dev\Unit1.dfm</Transaction>
+    <Transaction>2023/10/28 17:39:26.227,C:\Users\camila\Documents\Delphi_dev\U_Clientes.pas=C:\Users\camila\Documents\Delphi_dev\Unit1.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Delphi_dev.pas"/>
     <File Path="Delphi_dev.dfm"/>
     <File Path="DM.pas"/>
     <File Path="DM.dfm"/>
     <File Path="ListaProd.pas"/>
+    <File Path="ListaProd.dfm"/>
     <File Path="ProdutosDAO.pas"/>
+    <File Path="U_Clientes.pas"/>
+    <File Path="U_Clientes.dfm"/>
   </ProjectSortOrder>
 </BorlandProject>

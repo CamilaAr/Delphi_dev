@@ -8,15 +8,42 @@ uses
   Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls, Vcl.Menus, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Buttons;
 
 type
-  TPrincip = class(TForm)
+  TF_Principal = class(TForm)
     Button1: TButton;
     btnVenda: TButton;
+    stb_inicial: TStatusBar;
+    panel_menu: TPanel;
+    menu_inicial: TMainMenu;
+    Sistema1: TMenuItem;
+    Sistema2: TMenuItem;
+    Cadastros1: TMenuItem;
+    N1: TMenuItem;
+    produtos: TMenuItem;
+    Clientes1: TMenuItem;
+    Clientes2: TMenuItem;
+    Movimentos1: TMenuItem;
+    Movimentos2: TMenuItem;
+    PDV1: TMenuItem;
+    PDV2: TMenuItem;
+    MVendas1: TMenuItem;
+    VendasAbertas1: TMenuItem;
+    btn_clientes: TSpeedButton;
+    btn_Produtos: TSpeedButton;
+    btn_pdv: TSpeedButton;
+    N3: TMenuItem;
+    N4: TMenuItem;
+    Sair1: TMenuItem;
+    N5: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure btnVendaClick(Sender: TObject);
+    procedure Clientes1Click(Sender: TObject);
+    procedure btn_clientesClick(Sender: TObject);
+    procedure produtosClick(Sender: TObject);
+    procedure btn_ProdutosClick(Sender: TObject);
 
 
   private
@@ -27,29 +54,41 @@ type
   end;
 
 var
-  Princip: TPrincip;
+  F_Principal: TF_Principal;
 
 implementation
 
 {$R *.dfm}
 
-uses ListaProd, ClientesDAO,  DM, venda;
+uses ListaProd, ClientesDAO,  DM, venda, U_Clientes, U_Funcoes, U_Produtos;
 
 
 
 
 
 
-procedure TPrincip.btnVendaClick(Sender: TObject);
+procedure TF_Principal.btnVendaClick(Sender: TObject);
 var
   FormVenda: TForm1;
 begin
+
+
   FormVenda := TForm1.Create(Application);
   FormVenda.ShowModal;
   FormVenda.Free;
 end;
 
-procedure TPrincip.Button1Click(Sender: TObject);
+procedure TF_Principal.btn_clientesClick(Sender: TObject);
+begin
+  Clientes1.Click;
+end;
+
+procedure TF_Principal.btn_ProdutosClick(Sender: TObject);
+begin
+  produtos.Click;
+end;
+
+procedure TF_Principal.Button1Click(Sender: TObject);
 var
   ClienteID: String;
   FormLP: TListaProdutos;
@@ -80,7 +119,22 @@ begin
   end;
 end;
 
-procedure TPrincip.FormCreate(Sender: TObject);
+procedure TF_Principal.Clientes1Click(Sender: TObject);
+begin
+   if TestarPermissao('F_Clientes') = false then
+   begin
+     exit;
+   end;
+//chamar o form clientes
+   if(F_Clientes = nil) then
+   begin
+     F_Clientes := TF_Clientes.Create(self);
+     F_Clientes.ShowModal;
+     FreeAndNil(F_Clientes);
+   end;
+end;
+
+procedure TF_Principal.FormCreate(Sender: TObject);
 begin
 
    // DataMod.QRY_Prod.Open;
@@ -88,5 +142,20 @@ begin
 end;
 
 
+
+procedure TF_Principal.produtosClick(Sender: TObject);
+begin
+  if TestarPermissao('F_Produtos') = false then
+     begin
+       exit;
+     end;
+    //chamar o form produtos
+     if(F_Produtos = nil) then
+     begin
+       F_Produtos := TF_Produtos.Create(self);
+       F_Produtos.ShowModal;
+       FreeAndNil(F_Produtos);
+     end;
+  end;
 
 end.

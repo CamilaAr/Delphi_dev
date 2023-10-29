@@ -10,26 +10,26 @@ object DataMod: TDataMod
       'DriverID=MySQL')
     Connected = True
     LoginPrompt = False
-    Left = 232
-    Top = 136
+    Left = 8
+    Top = 8
   end
   object mysqlLink: TFDPhysMySQLDriverLink
     VendorLib = 'C:\Users\camila\Documents\Delphi_dev\libmysql.dll'
-    Left = 304
-    Top = 224
+    Left = 72
+    Top = 8
   end
   object waitcursor: TFDGUIxWaitCursor
     Provider = 'Forms'
-    Left = 432
-    Top = 72
+    Left = 144
+    Top = 8
   end
   object QRY_Prod: TFDQuery
     Active = True
     Connection = conect
     SQL.Strings = (
       'select * from produtos ')
-    Left = 552
-    Top = 48
+    Left = 96
+    Top = 96
     object QRY_ProdCodigo: TFDAutoIncField
       FieldName = 'Codigo'
       Origin = 'Codigo'
@@ -46,13 +46,14 @@ object DataMod: TDataMod
       FieldName = 'PrecoVenda'
       Origin = 'PrecoVenda'
       Required = True
+      DisplayFormat = ',0.00;-,0.00'
       Precision = 10
       Size = 2
     end
   end
   object DS_Prod: TDataSource
     DataSet = QRY_Prod
-    Left = 312
-    Top = 72
+    Left = 24
+    Top = 96
   end
 end
