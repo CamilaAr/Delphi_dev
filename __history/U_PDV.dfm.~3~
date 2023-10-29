@@ -1,0 +1,24 @@
+object F_PDV: TF_PDV
+  Left = 0
+  Top = 0
+  Caption = 'PDV'
+  ClientHeight = 462
+  ClientWidth = 738
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 443
+    Width = 738
+    Height = 19
+    Panels = <>
+    ExplicitLeft = 320
+    ExplicitTop = 368
+    ExplicitWidth = 0
+  end
+end

@@ -73,6 +73,7 @@ object F_Principal: TF_Principal
       Width = 98
       Height = 57
       Caption = 'PDV'
+      OnClick = btn_pdvClick
     end
   end
   object menu_inicial: TMainMenu
@@ -120,6 +121,7 @@ object F_Principal: TF_Principal
       end
       object PDV1: TMenuItem
         Caption = 'PDV'
+        OnClick = PDV1Click
       end
       object PDV2: TMenuItem
         Caption = 'CAIXA'

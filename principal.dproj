@@ -148,6 +148,10 @@
             <Form>F_Produtos</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="U_PDV.pas">
+            <Form>F_PDV</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

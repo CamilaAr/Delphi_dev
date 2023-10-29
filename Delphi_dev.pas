@@ -44,6 +44,8 @@ type
     procedure btn_clientesClick(Sender: TObject);
     procedure produtosClick(Sender: TObject);
     procedure btn_ProdutosClick(Sender: TObject);
+    procedure PDV1Click(Sender: TObject);
+    procedure btn_pdvClick(Sender: TObject);
 
 
   private
@@ -60,7 +62,8 @@ implementation
 
 {$R *.dfm}
 
-uses ListaProd, ClientesDAO,  DM, venda, U_Clientes, U_Funcoes, U_Produtos;
+uses ListaProd, ClientesDAO,  DM, venda, U_Clientes, U_Funcoes, U_Produtos,
+  ProdutosDAO, U_PDV;
 
 
 
@@ -81,6 +84,11 @@ end;
 procedure TF_Principal.btn_clientesClick(Sender: TObject);
 begin
   Clientes1.Click;
+end;
+
+procedure TF_Principal.btn_pdvClick(Sender: TObject);
+begin
+  PDV1.Click;
 end;
 
 procedure TF_Principal.btn_ProdutosClick(Sender: TObject);
@@ -125,7 +133,8 @@ begin
    begin
      exit;
    end;
-//chamar o form clientes
+   //chamar o form clientes
+   FreeAndNil(F_Clientes);
    if(F_Clientes = nil) then
    begin
      F_Clientes := TF_Clientes.Create(self);
@@ -143,13 +152,31 @@ end;
 
 
 
+procedure TF_Principal.PDV1Click(Sender: TObject);
+begin
+  if TestarPermissao('F_PDV') = false then
+     begin
+       exit;
+     end;
+     //chamar o form produtos
+    FreeAndNil(F_PDV);
+     if(F_PDV = nil) then
+     begin
+       F_PDV := TF_PDV.Create(self);
+       F_PDV.ShowModal;
+       FreeAndNil(F_PDV);
+     end;
+end;
+
+
 procedure TF_Principal.produtosClick(Sender: TObject);
 begin
   if TestarPermissao('F_Produtos') = false then
      begin
        exit;
      end;
-    //chamar o form produtos
+     //chamar o form produtos
+     FreeAndNil(F_Produtos);
      if(F_Produtos = nil) then
      begin
        F_Produtos := TF_Produtos.Create(self);
