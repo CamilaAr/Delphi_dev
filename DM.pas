@@ -35,6 +35,8 @@ type
     tb_cliCidade: TStringField;
     tb_cliUF: TStringField;
     DS_Cli: TDataSource;
+    QRY_ListarPedido: TFDQuery;
+    ds_listarPedido: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -59,7 +61,7 @@ var
   AppPath, IniFileName: string;
   HostName, Database, UserName, Password: string;
 begin
-{ AppPath := ExtractFileDir(ParamStr(0));
+ AppPath := ExtractFileDir(ParamStr(0));
  // Agora, você pode construir o caminho completo para o arquivo INI
   AppPath := IncludeTrailingPathDelimiter(AppPath) + 'config.ini'; // Construa o caminho completo do arquivo INI
  if FileExists(AppPath) then
@@ -104,7 +106,7 @@ begin
 
   
   ArquivoINI.Free;
-  }
+
 end;
 
 end.

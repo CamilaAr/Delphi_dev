@@ -3,13 +3,14 @@ object F_PDV: TF_PDV
   Top = 0
   Caption = 'PDV'
   ClientHeight = 462
-  ClientWidth = 738
+  ClientWidth = 752
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnClose = FormClose
   OnCreate = FormCreate
   TextHeight = 15
   object desc: TLabel
@@ -57,21 +58,21 @@ object F_PDV: TF_PDV
   object StatusBar1: TStatusBar
     Left = 0
     Top = 443
-    Width = 738
+    Width = 752
     Height = 19
     Panels = <>
     ExplicitTop = 442
-    ExplicitWidth = 734
+    ExplicitWidth = 748
   end
   object pnl_pdv_baixo: TPanel
     Left = 0
     Top = 383
-    Width = 738
+    Width = 752
     Height = 60
     Align = alBottom
     TabOrder = 1
     ExplicitTop = 382
-    ExplicitWidth = 734
+    ExplicitWidth = 748
     object Label1: TLabel
       Left = 544
       Top = 32
@@ -81,7 +82,7 @@ object F_PDV: TF_PDV
     end
     object edt_total: TEdit
       Left = 584
-      Top = 24
+      Top = 31
       Width = 121
       Height = 23
       Enabled = False
@@ -99,15 +100,60 @@ object F_PDV: TF_PDV
   end
   object dbg_lancamento: TDBGrid
     Left = 8
-    Top = 112
+    Top = 113
     Width = 611
     Height = 249
+    DataSource = DataMod.ds_listarPedido
+    Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -12
     TitleFont.Name = 'Segoe UI'
     TitleFont.Style = []
+    OnDblClick = dbg_lancamentoDblClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Autoincrem_PedidosProdutos'
+        Title.Caption = 'C'#243'digo'
+        Width = 47
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Codigo'
+        Title.Caption = 'Prod ID'
+        Width = 48
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Descricao'
+        Title.Caption = 'Nome Produto'
+        Width = 251
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PrecoVenda'
+        Title.Caption = 'Pre'#231'o'
+        Width = 82
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Quantidade_PedidosProdutos'
+        Title.Caption = 'QTD'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ValorTotal_PedidosProdutos'
+        Title.Caption = 'Total'
+        Width = 73
+        Visible = True
+      end>
   end
   object edt_pro_descr: TEdit
     Left = 101
@@ -133,14 +179,18 @@ object F_PDV: TF_PDV
     Width = 57
     Height = 23
     TabOrder = 5
+    Text = '1'
+    OnExit = edt_pro_qtdExit
+    OnKeyPress = edt_pro_qtdKeyPress
   end
   object btn_pro_add: TButton
-    Left = 542
+    Left = 544
     Top = 82
     Width = 75
     Height = 25
     Caption = 'Adicionar'
     TabOrder = 6
+    OnClick = btn_pro_addClick
   end
   object btn_gravar_venda: TButton
     Left = 625
@@ -174,10 +224,11 @@ object F_PDV: TF_PDV
     Height = 23
     Enabled = False
     TabOrder = 10
+    OnChange = edt_cli_nomeChange
   end
   object edt_pro_cod: TEdit
     Left = 8
-    Top = 83
+    Top = 84
     Width = 73
     Height = 23
     TabOrder = 11
@@ -191,6 +242,15 @@ object F_PDV: TF_PDV
     Caption = 'Iniciar Venda'
     TabOrder = 12
     OnClick = btn_iniciar_vendaClick
+  end
+  object btnEditar: TButton
+    Left = 625
+    Top = 82
+    Width = 80
+    Height = 25
+    Caption = 'Salvar Edi'#231#227'o'
+    TabOrder = 13
+    OnClick = btnEditarClick
   end
   object QRY_VerificaVenda: TFDQuery
     Connection = DataMod.conect
@@ -210,6 +270,7 @@ object F_PDV: TF_PDV
       FieldName = 'NumeroPedido'
       Origin = 'NumeroPedido'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object tb_pedidoDataEmissao: TDateField
       AutoGenerateValue = arDefault
@@ -228,5 +289,10 @@ object F_PDV: TF_PDV
       Precision = 10
       Size = 2
     end
+  end
+  object QRY_Itens: TFDQuery
+    Connection = DataMod.conect
+    Left = 656
+    Top = 184
   end
 end

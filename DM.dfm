@@ -24,7 +24,6 @@ object DataMod: TDataMod
     Top = 8
   end
   object QRY_Prod: TFDQuery
-    Active = True
     Connection = conect
     SQL.Strings = (
       'select * from produtos ')
@@ -152,5 +151,17 @@ object DataMod: TDataMod
     DataSet = QRY_Cli
     Left = 112
     Top = 176
+  end
+  object QRY_ListarPedido: TFDQuery
+    Connection = conect
+    SQL.Strings = (
+      'select * from view_listarpedido')
+    Left = 16
+    Top = 256
+  end
+  object ds_listarPedido: TDataSource
+    DataSet = QRY_ListarPedido
+    Left = 112
+    Top = 256
   end
 end
