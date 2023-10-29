@@ -67,6 +67,7 @@ object DataMod: TDataMod
       FieldName = 'Codigo'
       Origin = 'Codigo'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object tb_prodDescricao: TStringField
       FieldName = 'Descricao'
@@ -92,6 +93,7 @@ object DataMod: TDataMod
       FieldName = 'Codigo'
       Origin = 'Codigo'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object QRY_CliNome: TStringField
       FieldName = 'Nome'
@@ -124,6 +126,7 @@ object DataMod: TDataMod
       FieldName = 'Codigo'
       Origin = 'Codigo'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object tb_cliNome: TStringField
       FieldName = 'Nome'

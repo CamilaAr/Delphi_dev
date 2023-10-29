@@ -60,9 +60,8 @@ object F_PDV: TF_PDV
     Width = 738
     Height = 19
     Panels = <>
-    ExplicitLeft = 320
-    ExplicitTop = 368
-    ExplicitWidth = 0
+    ExplicitTop = 442
+    ExplicitWidth = 734
   end
   object pnl_pdv_baixo: TPanel
     Left = 0
@@ -71,7 +70,8 @@ object F_PDV: TF_PDV
     Height = 60
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 402
+    ExplicitTop = 382
+    ExplicitWidth = 734
     object Label1: TLabel
       Left = 544
       Top = 32
@@ -196,7 +196,37 @@ object F_PDV: TF_PDV
     Connection = DataMod.conect
     SQL.Strings = (
       'select * from pedidosdadosgerais')
-    Left = 680
-    Top = 120
+    Left = 656
+    Top = 128
+  end
+  object tb_pedido: TFDTable
+    IndexFieldNames = 'NumeroPedido'
+    Connection = DataMod.conect
+    ResourceOptions.AssignedValues = [rvEscapeExpand]
+    TableName = 'lojateste.pedidosdadosgerais'
+    Left = 664
+    Top = 232
+    object tb_pedidoNumeroPedido: TFDAutoIncField
+      FieldName = 'NumeroPedido'
+      Origin = 'NumeroPedido'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object tb_pedidoDataEmissao: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DataEmissao'
+      Origin = 'DataEmissao'
+    end
+    object tb_pedidoCodigoCliente: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CodigoCliente'
+      Origin = 'CodigoCliente'
+    end
+    object tb_pedidoValorTotal: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ValorTotal'
+      Origin = 'ValorTotal'
+      Precision = 10
+      Size = 2
+    end
   end
 end

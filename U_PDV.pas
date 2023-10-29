@@ -30,6 +30,11 @@ type
     btn_iniciar_venda: TButton;
     desc: TLabel;
     QRY_VerificaVenda: TFDQuery;
+    tb_pedido: TFDTable;
+    tb_pedidoNumeroPedido: TFDAutoIncField;
+    tb_pedidoDataEmissao: TDateField;
+    tb_pedidoCodigoCliente: TIntegerField;
+    tb_pedidoValorTotal: TBCDField;
     procedure edt_cli_codigoKeyPress(Sender: TObject; var Key: Char);
     procedure edt_pro_codKeyPress(Sender: TObject; var Key: Char);
     procedure BloqueiaCampos;
@@ -185,7 +190,7 @@ begin
   begin
     close;
     SQL.Clear;
-    SQL.add('select * from pedidos ');
+    SQL.add('select * from pedidosdadosgerais ');
     SQL.add('where NumeroPedido = :codigo ');
     paramByName('codigo').Value := CodigoVenda;
     open;
@@ -194,6 +199,13 @@ begin
   //Se não existe a venda, inicia uma nova venda
   if QRY_VerificaVenda.recordcount = 0  then
   begin
+    tb_pedido.active := true;
+    tb_pedido.append;
+    tb_pedidoDataEmissao.Value := Date;
+    tb_pedidoCodigoCliente.Value :=  dataMod.QRY_CliCodigo.Value;
+    tb_pedidoValorTotal.Value := 0;
+
+    tb_pedido.Post;
 
   end;
 
