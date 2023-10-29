@@ -135,7 +135,7 @@ object DataMod: TDataMod
       AutoGenerateValue = arDefault
       FieldName = 'Cidade'
       Origin = 'Cidade'
-      Size = 100
+      Size = 300
     end
     object tb_cliUF: TStringField
       AutoGenerateValue = arDefault

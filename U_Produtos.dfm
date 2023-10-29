@@ -179,11 +179,11 @@ object F_Produtos: TF_Produtos
   end
   object ds_prod_cad: TDataSource
     DataSet = DataMod.tb_prod
-    Left = 328
-    Top = 40
+    Left = 680
+    Top = 48
   end
-  object acm_prod: TActionManager
-    Left = 284
+  object acm_cli: TActionManager
+    Left = 612
     Top = 42
     StyleName = 'Platform Default'
     object ac_insert: TDataSetInsert

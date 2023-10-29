@@ -23,7 +23,7 @@ type
     ds_prod_cad: TDataSource;
     lb_preco: TLabel;
     DBEdit2: TDBEdit;
-    acm_prod: TActionManager;
+    acm_cli: TActionManager;
     ac_insert: TDataSetInsert;
     ac_apagar: TDataSetDelete;
     ac_editar: TDataSetEdit;
@@ -95,6 +95,7 @@ procedure TF_Produtos.FormCreate(Sender: TObject);
 begin
   DataMod.tb_prod.active := true;
   pg_Produtos.activePage := tab_consultar;
+  DataMod.QRY_Prod.open;
 
 end;
 
