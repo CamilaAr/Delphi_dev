@@ -63,7 +63,7 @@ CREATE TABLE `pedidosdadosgerais` (
   `ValorTotal` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`NumeroPedido`),
   KEY `idx_NumeroPedido_PedidosDadosGerais` (`NumeroPedido`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pedidosdadosgerais` */
 
@@ -71,7 +71,6 @@ insert  into `pedidosdadosgerais`(`NumeroPedido`,`DataEmissao`,`CodigoCliente`,`
 (2,'2023-10-29',1,0.00),
 (3,'2023-10-29',1,0.00),
 (7,'2023-10-29',3,0.00),
-(8,'2023-10-29',3,0.00),
 (9,'2023-10-29',3,0.00),
 (10,'2023-10-29',0,0.00),
 (11,'2023-10-29',3,0.00),
@@ -136,12 +135,11 @@ CREATE TABLE `pedidosprodutos` (
   KEY `idx_CodigoProduto_PedidosProdutos` (`CodigoProduto`),
   CONSTRAINT `pedidosprodutos_ibfk_1` FOREIGN KEY (`NumeroPedido`) REFERENCES `pedidosdadosgerais` (`NumeroPedido`),
   CONSTRAINT `pedidosprodutos_ibfk_2` FOREIGN KEY (`CodigoProduto`) REFERENCES `produtos` (`Codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pedidosprodutos` */
 
 insert  into `pedidosprodutos`(`Autoincrem`,`NumeroPedido`,`CodigoProduto`,`Quantidade`,`ValorUnitario`,`ValorTotal`) values 
-(1,8,5,2,1499.99,2999.98),
 (2,9,5,1,1499.99,1499.99),
 (3,11,7,5,249.99,1249.95),
 (4,12,10,1,149.99,149.99),
@@ -227,20 +225,6 @@ insert  into `produtos`(`Codigo`,`Descricao`,`PrecoVenda`) values
 (23,'Forno Elétrico Brastemp Gourmet',499.99),
 (24,'Coleira',20.00);
 
-/*Table structure for table `venda_efetivada` */
-
-DROP TABLE IF EXISTS `venda_efetivada`;
-
-CREATE TABLE `venda_efetivada` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_Pedido` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `idx_ID_Pedido` (`ID_Pedido`),
-  CONSTRAINT `fk_ID_Pedido` FOREIGN KEY (`ID_Pedido`) REFERENCES `pedidosdadosgerais` (`NumeroPedido`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `venda_efetivada` */
-
 /*Table structure for table `view_listarpedido` */
 
 DROP TABLE IF EXISTS `view_listarpedido`;
@@ -249,19 +233,13 @@ DROP TABLE IF EXISTS `view_listarpedido`;
 /*!50001 DROP TABLE IF EXISTS `view_listarpedido` */;
 
 /*!50001 CREATE TABLE  `view_listarpedido`(
- `Codigo` int(11) ,
+ `Autoincrem` int(11) ,
+ `G_NumeroPedido` int(11) ,
+ `CodigoProduto` int(11) ,
  `Descricao` varchar(255) ,
- `PrecoVenda` decimal(10,2) ,
- `Autoincrem_PedidosProdutos` int(11) ,
- `NumeroPedido_PedidosProdutos` int(11) ,
- `CodigoProduto_PedidosProdutos` int(11) ,
- `Quantidade_PedidosProdutos` int(11) ,
- `ValorUnitario_PedidosProdutos` decimal(10,2) ,
- `ValorTotal_PedidosProdutos` decimal(10,2) ,
- `NumeroPedido_PedidosDadosGerais` int(11) ,
- `DataEmissao_PedidosDadosGerais` date ,
- `CodigoCliente_PedidosDadosGerais` int(11) ,
- `ValorTotal_PedidosDadosGerais` decimal(10,2) 
+ `Quantidade` int(11) ,
+ `ValorUnitario` decimal(10,2) ,
+ `ValorTotal` decimal(10,2) 
 )*/;
 
 /*View structure for view view_listarpedido */
@@ -269,7 +247,7 @@ DROP TABLE IF EXISTS `view_listarpedido`;
 /*!50001 DROP TABLE IF EXISTS `view_listarpedido` */;
 /*!50001 DROP VIEW IF EXISTS `view_listarpedido` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_listarpedido` AS select `p`.`Codigo` AS `Codigo`,`p`.`Descricao` AS `Descricao`,`p`.`PrecoVenda` AS `PrecoVenda`,`i`.`Autoincrem` AS `Autoincrem_PedidosProdutos`,`i`.`NumeroPedido` AS `NumeroPedido_PedidosProdutos`,`i`.`CodigoProduto` AS `CodigoProduto_PedidosProdutos`,`i`.`Quantidade` AS `Quantidade_PedidosProdutos`,`i`.`ValorUnitario` AS `ValorUnitario_PedidosProdutos`,`i`.`ValorTotal` AS `ValorTotal_PedidosProdutos`,`g`.`NumeroPedido` AS `NumeroPedido_PedidosDadosGerais`,`g`.`DataEmissao` AS `DataEmissao_PedidosDadosGerais`,`g`.`CodigoCliente` AS `CodigoCliente_PedidosDadosGerais`,`g`.`ValorTotal` AS `ValorTotal_PedidosDadosGerais` from ((`pedidosdadosgerais` `g` join `produtos` `p`) join `pedidosprodutos` `i`) where ((`g`.`NumeroPedido` = `i`.`NumeroPedido`) and (`p`.`Codigo` = `i`.`CodigoProduto`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_listarpedido` AS select `i`.`Autoincrem` AS `Autoincrem`,`g`.`NumeroPedido` AS `G_NumeroPedido`,`p`.`Codigo` AS `CodigoProduto`,`p`.`Descricao` AS `Descricao`,`i`.`Quantidade` AS `Quantidade`,`i`.`ValorUnitario` AS `ValorUnitario`,`i`.`ValorTotal` AS `ValorTotal` from ((`pedidosdadosgerais` `g` join `produtos` `p` on((`g`.`NumeroPedido` = `p`.`Codigo`))) join `pedidosprodutos` `i` on((`g`.`NumeroPedido` = `i`.`NumeroPedido`))) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
