@@ -17,8 +17,6 @@ type
     stb_inicial: TStatusBar;
     panel_menu: TPanel;
     menu_inicial: TMainMenu;
-    Sistema1: TMenuItem;
-    Sistema2: TMenuItem;
     Cadastros1: TMenuItem;
     N1: TMenuItem;
     produtos: TMenuItem;
@@ -27,25 +25,18 @@ type
     Movimentos1: TMenuItem;
     Movimentos2: TMenuItem;
     PDV1: TMenuItem;
-    PDV2: TMenuItem;
-    MVendas1: TMenuItem;
-    VendasAbertas1: TMenuItem;
     btn_clientes: TSpeedButton;
     btn_Produtos: TSpeedButton;
     btn_pdv: TSpeedButton;
-    N3: TMenuItem;
-    N4: TMenuItem;
-    Sair1: TMenuItem;
-    N5: TMenuItem;
     Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
-    procedure btnVendaClick(Sender: TObject);
-    procedure Clientes1Click(Sender: TObject);
-    procedure btn_clientesClick(Sender: TObject);
-    procedure produtosClick(Sender: TObject);
-    procedure btn_ProdutosClick(Sender: TObject);
-    procedure PDV1Click(Sender: TObject);
+    procedure btnVendaClick(Sender: TObject); //abre o form  de venda
+    procedure Clientes1Click(Sender: TObject); //abre o form de clientes
+    procedure btn_clientesClick(Sender: TObject); //abre o form  de clientes
+    procedure produtosClick(Sender: TObject); //abre o form de prodtos
+    procedure btn_ProdutosClick(Sender: TObject); //abre o form  de produtos
+    procedure PDV1Click(Sender: TObject);  //abre o PDV
     procedure btn_pdvClick(Sender: TObject);
 
 
@@ -76,7 +67,7 @@ var
   FormVenda: TForm1;
 begin
 
-
+  //cria e libera o form
   FormVenda := TForm1.Create(Application);
   FormVenda.ShowModal;
   FormVenda.Free;
@@ -98,6 +89,7 @@ begin
 end;
 
 procedure TF_Principal.Button1Click(Sender: TObject);
+//para o form antigo de venda
 var
   ClienteID: String;
   FormLP: TListaProdutos;
@@ -129,6 +121,7 @@ begin
 end;
 
 procedure TF_Principal.Clientes1Click(Sender: TObject);
+//cria e libera o form - Possivel implementação para permissão
 begin
    if TestarPermissao('F_Clientes') = false then
    begin
@@ -155,6 +148,7 @@ end;
 
 procedure TF_Principal.PDV1Click(Sender: TObject);
 begin
+//cria e libera o form - Possivel implementação para permissão
   if TestarPermissao('F_PDV') = false then
      begin
        exit;
@@ -171,6 +165,7 @@ end;
 
 
 procedure TF_Principal.produtosClick(Sender: TObject);
+//cria e libera o form - Possivel implementação para permissã
 begin
   if TestarPermissao('F_Produtos') = false then
      begin

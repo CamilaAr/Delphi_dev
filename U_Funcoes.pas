@@ -9,7 +9,7 @@ implementation
 uses Vcl.Dialogs;
 
 function TestarPermissao(NOME_FORM: string) : boolean;
-begin
+begin   //futura implementação de acesso
    result := true;
    if result = false then
    begin

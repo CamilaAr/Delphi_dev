@@ -1,19 +1,28 @@
-O sistema nÃ£o estÃ¡ finalizando
+O sistema está finalizado, algumas ressalvas:
 
-O arquivo ini a ser editado com as configuraÃ§Ãµes do banco Ã© o:
+Foi optado finalizar todas as funcionalidades utilizando orientação a eventos ao invés de orientação a objetos por questão de tempo e cuidado com erros.
+
+
+O arquivo ini a ser editado com as configuraçõs do banco é:
 	C:\Users\camila\Documents\Delphi_dev\Win32\Debug
+É recomendável compilar o projeto apenas e 32 bits, uma vez que a biblioteca FIREDAC aceita somente banco de 32 bits quando se utiliza MySQL. Com 32 bits funcionará perfeitamente em qualquer máquina
 
-Ao entrar no sistema vÃ£o ter duas opÃ§Ãµes:
+
+
+É possÃ­vel acessar o arquivo dump do banco pelo arquivo banco.sql
+
+O sistema apresenta um menu inicial com botões abaixo dele para selecionar as telas de:
+Clientes: Visalização, Cadastro e edição.
+Produtos: Visalização, Cadastro e edição.
+PDV: Realização de vendas, inserção e edição de itens na venda, cancelamento de itens, totalização, listagem de produtos, cancelamento de venda, gravação de venda, busca de cliente e produto por id, acessar uma venda já feita.
+
+
+Ao entrar no sistema vão ter duas opções antigas no fim da tela, essas opções foram as implementadas anteriormente e carregam um pouco de orientação a objetos:
 Produtos:
-	Para acessar Ã© necessÃ¡rio digitar um cÃ³digo de cliente existente no banco.
-	Traz uma listagem de produtos, a qual Ã© possÃ­vel editar cliando no campo desejado
-	Ã‰ possÃ­vel excluir clicando na linha desejada e apertando delete
-	Ã‰ possÃ­vel tambÃ©m pesquisar em tempo real em qualquer coluna da tabela pelo edit da tela
+	Para acessar é necessário digitar um código de cliente existente no banco.
+	Traz uma listagem de produtos, a qual é possível editar cliando no campo desejado
+	É possível excluir clicando na linha desejada e apertando delete
+	É possível também pesquisar em tempo real em qualquer coluna da tabela pelo edit da tela
 
 Venda:
-	EstÃ¡ incompleto
-
-Ã‰ possÃ­vel ver o codigo do banco no arquivo banco.txt
-
-Ã‰ possÃ­vel acessar o arquivo do banco pelo arquivo banco.sql
-
+	Está incompleto

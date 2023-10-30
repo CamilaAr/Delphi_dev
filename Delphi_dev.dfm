@@ -86,24 +86,6 @@ object F_Principal: TF_Principal
   object menu_inicial: TMainMenu
     Left = 704
     Top = 192
-    object Sistema1: TMenuItem
-      Caption = 'Sistema'
-      object N3: TMenuItem
-        Caption = '-'
-      end
-      object N4: TMenuItem
-        Caption = 'Configura'#231#245'es'
-      end
-      object N5: TMenuItem
-        Caption = '-'
-      end
-      object Sair1: TMenuItem
-        Caption = 'Sair'
-      end
-    end
-    object Sistema2: TMenuItem
-      Caption = '-'
-    end
     object Cadastros1: TMenuItem
       Caption = 'Cadastros / Consultas'
       object N1: TMenuItem
@@ -129,15 +111,6 @@ object F_Principal: TF_Principal
       object PDV1: TMenuItem
         Caption = 'PDV'
         OnClick = PDV1Click
-      end
-      object PDV2: TMenuItem
-        Caption = 'CAIXA'
-      end
-      object VendasAbertas1: TMenuItem
-        Caption = 'Vendas Abertas'
-      end
-      object MVendas1: TMenuItem
-        Caption = 'Gerenciar Vendas'
       end
     end
   end

@@ -80,7 +80,9 @@ begin
   else
   begin
     ShowMessage('O arquivo config.ini não foi encontrado.');
+    //se não existe aparece a mensagem na tela
   end;
+  //recebendo os parâmetros
   HostName := ArquivoINI.ReadString('MySQL', 'Server', 'localhost');
   Database := ArquivoINI.ReadString('MySQL', 'Database', 'minha_base_de_dados');
   UserName := ArquivoINI.ReadString('MySQL', 'User_Name', 'meu_usuario');
@@ -102,11 +104,13 @@ begin
       // A conexão está ativa; você pode executar consultas ou outras operações aqui.
     end
     else
+      //se os dados estiverem incorretos aparece essa mensagem
       ShowMessage('A conexão não pôde ser estabelecida, verifique os dados do arquivo config.ini');
 
   except
     on E: EFDDBEngineException do
     begin
+      //Mostra qual erro aconteceu
       ShowMessage('Erro ao conectar ao banco de dados: ' + E.Message);
 
     end;
