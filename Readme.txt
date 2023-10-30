@@ -1,28 +1,28 @@
-O sistema est· finalizado, algumas ressalvas:
+O sistema est√° finalizado, com algumas ressalvas:
 
-Foi optado finalizar todas as funcionalidades utilizando orientaÁ„o a eventos ao invÈs de orientaÁ„o a objetos por quest„o de tempo e cuidado com erros.
-
-
-O arquivo ini a ser editado com as configuraÁıs do banco È:
-	C:\Users\camila\Documents\Delphi_dev\Win32\Debug
-… recomend·vel compilar o projeto apenas e 32 bits, uma vez que a biblioteca FIREDAC aceita somente banco de 32 bits quando se utiliza MySQL. Com 32 bits funcionar· perfeitamente em qualquer m·quina
+Foi optado finalizar todas as funcionalidades utilizando orienta√ß√£o a eventos ao inv√©s de orienta√ß√£o a objetos por quest√£o de tempo e cuidado com erros.
 
 
-
-… poss√≠vel acessar o arquivo dump do banco pelo arquivo banco.sql
-
-O sistema apresenta um menu inicial com botıes abaixo dele para selecionar as telas de:
-Clientes: VisalizaÁ„o, Cadastro e ediÁ„o.
-Produtos: VisalizaÁ„o, Cadastro e ediÁ„o.
-PDV: RealizaÁ„o de vendas, inserÁ„o e ediÁ„o de itens na venda, cancelamento de itens, totalizaÁ„o, listagem de produtos, cancelamento de venda, gravaÁ„o de venda, busca de cliente e produto por id, acessar uma venda j· feita.
+O arquivo ini a ser editado com as configura√ß√µs do banco √©:
+	Delphi_dev\Win32\Debug
+√â recomend√°vel compilar o projeto apenas e 32 bits, uma vez que a biblioteca FIREDAC aceita somente banco de 32 bits quando se utiliza MySQL. Com 32 bits funcionar√° perfeitamente em qualquer m√°quina
 
 
-Ao entrar no sistema v„o ter duas opÁıes antigas no fim da tela, essas opÁıes foram as implementadas anteriormente e carregam um pouco de orientaÁ„o a objetos:
+
+√â poss√≠¬≠vel acessar o arquivo dump do banco pelo arquivo banco.sql na raiz do projeto
+
+O sistema apresenta um menu inicial com bot√µes abaixo dele para selecionar as telas de:
+Clientes: Visualiza√ß√£o, Cadastro e edi√ß√£o.
+Produtos: Visualiza√ß√£o, Cadastro e edi√ß√£o.
+PDV: Realiza√ß√£o de vendas, inser√ß√£o e edi√ß√£o de itens na venda, cancelamento de itens, totaliza√ß√£o, listagem de produtos, cancelamento de venda, grava√ß√£o de venda, busca de cliente e produto por id, acessar uma venda j√° feita.
+
+
+Ao entrar no sistema v√£o ter duas op√ß√µes antigas no fim da tela, essas op√ß√µes foram as implementadas anteriormente e carregam um pouco de orienta√ß√£o a objetos:
 Produtos:
-	Para acessar È necess·rio digitar um cÛdigo de cliente existente no banco.
-	Traz uma listagem de produtos, a qual È possÌvel editar cliando no campo desejado
-	… possÌvel excluir clicando na linha desejada e apertando delete
-	… possÌvel tambÈm pesquisar em tempo real em qualquer coluna da tabela pelo edit da tela
+	Para acessar √© necess√°rio digitar um c√≥digo de cliente existente no banco.
+	Traz uma listagem de produtos, a qual √© poss√≠vel editar cliando no campo desejado
+	√â poss√≠vel excluir clicando na linha desejada e apertando delete
+	√â poss√≠vel tamb√©m pesquisar em tempo real em qualquer coluna da tabela pelo edit da tela
 
 Venda:
-	Est· incompleto
+	Est√° incompleto
