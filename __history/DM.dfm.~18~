@@ -158,43 +158,6 @@ object DataMod: TDataMod
       'select * from view_listarpedido')
     Left = 16
     Top = 256
-    object QRY_ListarPedidoAutoincrem: TFDAutoIncField
-      FieldName = 'Autoincrem'
-      Origin = 'Autoincrem'
-    end
-    object QRY_ListarPedidoG_NumeroPedido: TFDAutoIncField
-      FieldName = 'G_NumeroPedido'
-      Origin = 'G_NumeroPedido'
-    end
-    object QRY_ListarPedidoCodigoProduto: TFDAutoIncField
-      FieldName = 'CodigoProduto'
-      Origin = 'CodigoProduto'
-    end
-    object QRY_ListarPedidoDescricao: TStringField
-      FieldName = 'Descricao'
-      Origin = 'Descricao'
-      Required = True
-      Size = 255
-    end
-    object QRY_ListarPedidoQuantidade: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'Quantidade'
-      Origin = 'Quantidade'
-    end
-    object QRY_ListarPedidoValorUnitario: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ValorUnitario'
-      Origin = 'ValorUnitario'
-      Precision = 10
-      Size = 2
-    end
-    object QRY_ListarPedidoValorTotal: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ValorTotal'
-      Origin = 'ValorTotal'
-      Precision = 10
-      Size = 2
-    end
   end
   object ds_listarPedido: TDataSource
     DataSet = QRY_ListarPedido

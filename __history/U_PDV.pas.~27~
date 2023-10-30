@@ -142,9 +142,9 @@ begin
   begin
     close;
     SQL.Clear;
-    SQL.Add('select * from view_listarpedido where G_NumeroPedido = :numPedido');
+    SQL.Add('select * from view_listarpedido');
     ParamByName('numPedido').Value := CodigoVenda;
-    Open;
+    execSQL;
   end;
 
   DataMod.QRY_ListarPedido.Close;
@@ -163,9 +163,9 @@ begin
   begin
     close;
     SQL.Clear;
-    SQL.Add('select * from view_listarpedido where G_NumeroPedido = :numPedido');
+    SQL.Add('select * from view_listarpedido');
     ParamByName('numPedido').Value := CodigoVenda;
-    Open;
+    execSQL;
   end;
 
   DataMod.QRY_ListarPedido.Close;
@@ -193,7 +193,7 @@ procedure TF_PDV.btn_remove_itemClick(Sender: TObject);
 var
   item, quantidade : integer;
 begin
-  item := dataMod.QRY_ListarPedido.FieldByName('Autoincrem').Value;
+  item := dataMod.QRY_ListarPedido.FieldByName('Autoincrem_PedidosProdutos').Value;
   with QRY_Itens do
   begin
     Close;
@@ -417,7 +417,7 @@ begin
         Close;
         SQL.Clear;
         SQL.Add('SELECT * FROM view_ListarPedido');
-        SQL.Add('WHERE G_NumeroPedido = :codigo');
+        SQL.Add('WHERE NumeroPedido_PedidosDadosGerais = :codigo');
         ParamByName('codigo').Value := CodigoVenda;
         Open;
       end;
@@ -438,7 +438,7 @@ begin
   TotalPedido := 0;
   while not DataMod.QRY_ListarPedido.eof do
   begin
-    TotalPedido := TotalPedido +  DataMod.QRY_ListarPedido.FieldByName('ValorTotal').Value;
+    TotalPedido := TotalPedido +  DataMod.QRY_ListarPedido.FieldByName('ValorTotal_PedidosProdutos').Value;
 
 
     DataMod.QRY_ListarPedido.next;
@@ -599,7 +599,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * FROM view_ListarPedido');
-    SQL.Add('WHERE G_NumeroPedido = :codigo');
+    SQL.Add('WHERE NumeroPedido_PedidosDadosGerais = :codigo');
     ParamByName('codigo').Value := CodigoVenda;
     Open;
   end;

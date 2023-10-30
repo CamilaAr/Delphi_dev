@@ -37,13 +37,6 @@ type
     DS_Cli: TDataSource;
     QRY_ListarPedido: TFDQuery;
     ds_listarPedido: TDataSource;
-    QRY_ListarPedidoAutoincrem: TFDAutoIncField;
-    QRY_ListarPedidoG_NumeroPedido: TFDAutoIncField;
-    QRY_ListarPedidoCodigoProduto: TFDAutoIncField;
-    QRY_ListarPedidoDescricao: TStringField;
-    QRY_ListarPedidoQuantidade: TIntegerField;
-    QRY_ListarPedidoValorUnitario: TBCDField;
-    QRY_ListarPedidoValorTotal: TBCDField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

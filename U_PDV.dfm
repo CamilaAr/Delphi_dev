@@ -103,7 +103,7 @@ object F_PDV: TF_PDV
   end
   object dbg_lancamento: TDBGrid
     Left = 8
-    Top = 113
+    Top = 112
     Width = 611
     Height = 249
     DataSource = DataMod.ds_listarPedido
@@ -120,43 +120,39 @@ object F_PDV: TF_PDV
     Columns = <
       item
         Expanded = False
-        FieldName = 'Autoincrem_PedidosProdutos'
-        Title.Caption = 'C'#243'digo'
-        Width = 47
+        FieldName = 'Autoincrem'
+        Title.Caption = 'id Item'
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'Codigo'
-        Title.Caption = 'Prod ID'
-        Width = 48
+        FieldName = 'CodigoProduto'
+        Title.Caption = 'id Produto'
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Descricao'
-        Title.Caption = 'Nome Produto'
-        Width = 251
+        Title.Caption = 'Descri'#231#227'o'
+        Width = 234
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'PrecoVenda'
-        Title.Caption = 'Pre'#231'o'
-        Width = 82
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'Quantidade_PedidosProdutos'
+        FieldName = 'Quantidade'
         Title.Caption = 'QTD'
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'ValorTotal_PedidosProdutos'
-        Title.Caption = 'Total'
-        Width = 73
+        FieldName = 'ValorUnitario'
+        Title.Caption = 'Valor'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ValorTotal'
+        Title.Caption = 'Valor Total'
         Visible = True
       end>
   end

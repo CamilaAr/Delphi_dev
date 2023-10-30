@@ -21,7 +21,7 @@ type
     Sistema2: TMenuItem;
     Cadastros1: TMenuItem;
     N1: TMenuItem;
-    N2: TMenuItem;
+    produtos: TMenuItem;
     Clientes1: TMenuItem;
     Clientes2: TMenuItem;
     Movimentos1: TMenuItem;
@@ -42,6 +42,10 @@ type
     procedure btnVendaClick(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
     procedure btn_clientesClick(Sender: TObject);
+    procedure produtosClick(Sender: TObject);
+    procedure btn_ProdutosClick(Sender: TObject);
+    procedure PDV1Click(Sender: TObject);
+    procedure btn_pdvClick(Sender: TObject);
 
 
   private
@@ -58,7 +62,8 @@ implementation
 
 {$R *.dfm}
 
-uses ListaProd, ClientesDAO,  DM, venda, U_Clientes;
+uses ListaProd, ClientesDAO,  DM, venda, U_Clientes, U_Funcoes, U_Produtos,
+  ProdutosDAO, U_PDV;
 
 
 
@@ -69,6 +74,8 @@ procedure TF_Principal.btnVendaClick(Sender: TObject);
 var
   FormVenda: TForm1;
 begin
+
+
   FormVenda := TForm1.Create(Application);
   FormVenda.ShowModal;
   FormVenda.Free;
@@ -77,6 +84,16 @@ end;
 procedure TF_Principal.btn_clientesClick(Sender: TObject);
 begin
   Clientes1.Click;
+end;
+
+procedure TF_Principal.btn_pdvClick(Sender: TObject);
+begin
+  PDV1.Click;
+end;
+
+procedure TF_Principal.btn_ProdutosClick(Sender: TObject);
+begin
+  produtos.Click;
 end;
 
 procedure TF_Principal.Button1Click(Sender: TObject);
@@ -112,11 +129,17 @@ end;
 
 procedure TF_Principal.Clientes1Click(Sender: TObject);
 begin
-//chamar o form clientes
+   if TestarPermissao('F_Clientes') = false then
+   begin
+     exit;
+   end;
+   //chamar o form clientes
+   FreeAndNil(F_Clientes);
    if(F_Clientes = nil) then
    begin
      F_Clientes := TF_Clientes.Create(self);
      F_Clientes.ShowModal;
+     FreeAndNil(F_Clientes);
    end;
 end;
 
@@ -128,5 +151,38 @@ begin
 end;
 
 
+
+procedure TF_Principal.PDV1Click(Sender: TObject);
+begin
+  if TestarPermissao('F_PDV') = false then
+     begin
+       exit;
+     end;
+     //chamar o form produtos
+    FreeAndNil(F_PDV);
+     if(F_PDV = nil) then
+     begin
+       F_PDV := TF_PDV.Create(self);
+       F_PDV.ShowModal;
+       FreeAndNil(F_PDV);
+     end;
+end;
+
+
+procedure TF_Principal.produtosClick(Sender: TObject);
+begin
+  if TestarPermissao('F_Produtos') = false then
+     begin
+       exit;
+     end;
+     //chamar o form produtos
+     FreeAndNil(F_Produtos);
+     if(F_Produtos = nil) then
+     begin
+       F_Produtos := TF_Produtos.Create(self);
+       F_Produtos.ShowModal;
+       FreeAndNil(F_Produtos);
+     end;
+  end;
 
 end.

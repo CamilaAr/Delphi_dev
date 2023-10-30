@@ -37,6 +37,7 @@ type
     N4: TMenuItem;
     Sair1: TMenuItem;
     N5: TMenuItem;
+    Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure btnVendaClick(Sender: TObject);
