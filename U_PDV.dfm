@@ -11,7 +11,9 @@ object F_PDV: TF_PDV
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object desc: TLabel
     Left = 101
@@ -96,6 +98,7 @@ object F_PDV: TF_PDV
       Height = 25
       Caption = 'Remover Item'
       TabOrder = 1
+      OnClick = btn_remove_itemClick
     end
   end
   object dbg_lancamento: TDBGrid
@@ -112,6 +115,8 @@ object F_PDV: TF_PDV
     TitleFont.Name = 'Segoe UI'
     TitleFont.Style = []
     OnDblClick = dbg_lancamentoDblClick
+    OnKeyDown = dbg_lancamentoKeyDown
+    OnKeyPress = dbg_lancamentoKeyPress
     Columns = <
       item
         Expanded = False
@@ -199,6 +204,7 @@ object F_PDV: TF_PDV
     Height = 25
     Caption = 'Gravar Venda'
     TabOrder = 7
+    OnClick = btn_gravar_vendaClick
   end
   object btn_cancelar_venda: TButton
     Left = 625
@@ -207,6 +213,7 @@ object F_PDV: TF_PDV
     Height = 25
     Caption = 'Cancelar Venda'
     TabOrder = 8
+    OnClick = btn_cancelar_vendaClick
   end
   object edt_cli_codigo: TEdit
     Left = 8
@@ -294,5 +301,10 @@ object F_PDV: TF_PDV
     Connection = DataMod.conect
     Left = 656
     Top = 184
+  end
+  object QRY_CancelaVenda: TFDQuery
+    Connection = DataMod.conect
+    Left = 704
+    Top = 192
   end
 end

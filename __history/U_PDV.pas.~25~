@@ -36,6 +36,7 @@ type
     tb_pedidoCodigoCliente: TIntegerField;
     tb_pedidoValorTotal: TBCDField;
     QRY_Itens: TFDQuery;
+    btnEditar: TButton;
     procedure edt_cli_codigoKeyPress(Sender: TObject; var Key: Char);
     procedure edt_pro_codKeyPress(Sender: TObject; var Key: Char);
     procedure BloqueiaCampos;
@@ -46,6 +47,12 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btn_iniciar_vendaClick(Sender: TObject);
     procedure btn_pro_addClick(Sender: TObject);
+    procedure edt_pro_qtdKeyPress(Sender: TObject; var Key: Char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure dbg_lancamentoDblClick(Sender: TObject);
+    procedure btnEditarClick(Sender: TObject);
+    procedure edt_pro_qtdExit(Sender: TObject);
+    procedure edt_cli_nomeChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,6 +60,9 @@ type
     CodigoVenda : string;
     DataPedido : string;
     TotalPedido : double;
+    ItemId, qtd: Integer;
+    NomeProduto : string;
+    preço : double;
   end;
 
 var
@@ -66,6 +76,32 @@ uses DM, U_Funcoes;
 
 
 
+procedure TF_PDV.btnEditarClick(Sender: TObject);
+begin
+  with QRY_Itens do
+  begin
+    close;
+    SQL.Clear;
+    SQL.Add('update pedidosprodutos set Quantidade = :qtd, ValorTotal = :total ');
+    SQL.Add('where Autoincrem = :id ');
+    ParamByName('qtd').Value := edt_pro_qtd.Text;
+    ParamByName('id').Value := ItemId;
+    ParamByName('total').Value := StrToFloat(edt_pro_qtd.Text) * StrToFloat(edt_pro_preco.text);
+    execSQL;
+  end;
+  ShowMessage ('Produto editado com sucesso!');
+  //atualiza listagem de itens no pedido
+  UpdateLista;
+
+  edt_pro_cod.enabled := true;
+  edt_pro_descr.enabled := true;
+  edt_pro_preco.enabled := true;
+  btn_pro_add.enabled := true;
+  btnEditar.Enabled := false;
+
+
+end;
+
 procedure TF_PDV.btn_iniciar_vendaClick(Sender: TObject);
 begin
   IniciaVendas;
@@ -74,8 +110,41 @@ end;
 procedure TF_PDV.btn_pro_addClick(Sender: TObject);
 begin
   //chama a função de adicionar produtos
+  if edt_pro_descr.Text = '' then
+  begin
+    ShowMessage('Produto não selecionado!');
+    exit;
+  end;
   produtosAdd;
 end;
+
+procedure TF_PDV.dbg_lancamentoDblClick(Sender: TObject);
+
+begin
+  if dbg_lancamento.DataSource.DataSet.Active then
+  begin
+    // Verifica se há uma linha selecionada no TDBGrid
+    if not dbg_lancamento.DataSource.DataSet.IsEmpty then
+    begin
+      // Obtém o valor da coluna que contém o ID da linha selecionada
+      ItemId := dbg_lancamento.DataSource.DataSet.FieldByName('Autoincrem_PedidosProdutos').AsInteger;
+      edt_pro_cod.Text := dbg_lancamento.DataSource.DataSet.FieldByName('Codigo').AsString;
+      edt_pro_descr.text := dbg_lancamento.DataSource.DataSet.FieldByName('Descricao').AsString;
+      edt_pro_preco.Text := dbg_lancamento.DataSource.DataSet.FieldByName('PrecoVenda').AsString;
+      edt_pro_qtd.Text := dbg_lancamento.DataSource.DataSet.FieldByName('Quantidade_PedidosProdutos').AsString;
+      edt_pro_cod.enabled := false;
+      edt_pro_descr.enabled := false;
+      edt_pro_preco.enabled := false;
+      btn_pro_add.enabled := false;
+      btnEditar.Enabled := true;
+
+      ShowMessage ('Selecione a nova quantidade');
+
+
+    end;
+  end;
+end;
+
 
 procedure TF_PDV.edt_cli_codigoKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -106,6 +175,16 @@ begin
 
      end;
 
+  end;
+
+end;
+
+procedure TF_PDV.edt_cli_nomeChange(Sender: TObject);
+begin
+  btn_iniciar_venda.Enabled := true;
+  if edt_cli_nome.Text = '' then
+  begin
+     btn_iniciar_venda.Enabled := false;
   end;
 
 end;
@@ -150,42 +229,7 @@ begin
   qtd :=  StrToInt(edt_pro_qtd.Text);
   preco := dataMod.QRY_ProdPrecoVenda.Value;
 
-  //verifica se o produto já foi lançado no pedido
-  with QRY_Itens do
-  begin
-    close;
-    SQL.Clear;
-    SQL.Add('select * from pedidosprodutos ');
-    SQL.Add('where CodigoProduto = :produto ');
-    SQL.Add('and NumeroPedido = :pedido ');
-    paramByName('produto').Value := produto;
-    paramByName('pedido').Value := CodigoVenda;
-    open;
 
-
-  end;
-
-  if QRY_Itens.RecordCount > 0 then
-  begin
-    with QRY_Itens do
-    begin
-      close;
-      SQL.Clear;
-      SQL.Add('insert into pedidosprodutos ');
-      SQL.Add(' (NumeroPedido, CodigoProduto, Quantidade, ValorUnitario, ValorTotal) ');
-      SQL.Add('VALUES (:pedido, :produto, :qtd, :valor, :total) ');
-      paramByName('produto').Value := produto;
-      paramByName('pedido').Value := CodigoVenda;
-      paramByName('qtd').Value := qtd;
-      paramByName('valor').Value := preco;
-      paramByName('valor').Value := preco * qtd;
-      execSQL;
-
-
-    end;
-
-  end else
-  begin
     with QRY_Itens do
     begin
       close;
@@ -202,9 +246,12 @@ begin
 
       ShowMessage ('Produto Adicionado com Sucesso!');
 
-    end;
+      //atualiza listagem de itens no pedido
+      UpdateLista;
 
-  end;
+    end;
+    edt_pro_qtd.text := '1';
+
 
 
 
@@ -216,6 +263,21 @@ begin
 //atualiza a visualização dos itens no pedido
   dataMod.QRY_listarPedido.close;
   dataMod.QRY_listarPedido.open;
+
+  //pegando o total do pedido
+  DataMod.QRY_ListarPedido.first;
+
+  TotalPedido := 0;
+  while not DataMod.QRY_ListarPedido.eof do
+  begin
+    TotalPedido := TotalPedido +  DataMod.QRY_ListarPedido.FieldByName('ValorTotal_PedidosProdutos').Value;
+
+
+    DataMod.QRY_ListarPedido.next;
+  end;
+
+  edt_total.Text :=  FloatToStr(TotalPedido);
+
 
 
 
@@ -256,9 +318,45 @@ begin
 
 end;
 
+procedure TF_PDV.edt_pro_qtdExit(Sender: TObject);
+begin
+  if (edt_pro_qtd.text = '') then
+  begin
+    edt_pro_qtd.text := '1';
+  end
+  else if (strToInt(edt_pro_qtd.text) < 1)  then
+  begin
+    edt_pro_qtd.text := '1';
+  end;
+end;
+
+procedure TF_PDV.edt_pro_qtdKeyPress(Sender: TObject; var Key: Char);
+begin
+  // Verifica se o caractere não é um número (0-9) ou Backspace
+  if not (Key in ['0'..'9', #8]) then
+  begin
+    // Se não for um número, impede a entrada do caractere
+    Key := #0;
+  end;
+  
+
+end;
+
+procedure TF_PDV.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  dataMod.QRY_Prod.close;
+  dataMod.QRY_listarPedido.close;
+  CodigoVenda := '';
+
+
+
+end;
+
 procedure TF_PDV.FormCreate(Sender: TObject);
 begin
   BloqueiaCampos;
+  btnEditar.Enabled := false;
+  btn_iniciar_venda.Enabled := false;
 end;
 
 procedure TF_PDV.IniciaVendas;
@@ -299,6 +397,17 @@ begin
 
     tb_pedido.Post;
     CodigoVenda := IntToStr(tb_pedidoNumeroPedido.Value);
+  end;
+
+
+  with DataMod.QRY_ListarPedido do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM view_ListarPedido');
+    SQL.Add('WHERE NumeroPedido_PedidosDadosGerais = :codigo');
+    ParamByName('codigo').Value := CodigoVenda;
+    Open;
   end;
 
 

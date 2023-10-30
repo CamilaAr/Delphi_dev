@@ -62,7 +62,7 @@ type
     TotalPedido : double;
     ItemId, qtd: Integer;
     NomeProduto : string;
-    pre√ßo : double;
+    preÁo : double;
   end;
 
 var
@@ -110,10 +110,10 @@ end;
 
 procedure TF_PDV.btn_pro_addClick(Sender: TObject);
 begin
-  //chama a fun√ß√£o de adicionar produtos
+  //chama a funÁ„o de adicionar produtos
   if edt_pro_descr.Text = '' then
   begin
-    ShowMessage('Produto n√£o selecionado!');
+    ShowMessage('Produto n„o selecionado!');
     exit;
   end;
   produtosAdd;
@@ -124,10 +124,10 @@ procedure TF_PDV.dbg_lancamentoDblClick(Sender: TObject);
 begin
   if dbg_lancamento.DataSource.DataSet.Active then
   begin
-    // Verifica se h√° uma linha selecionada no TDBGrid
+    // Verifica se h· uma linha selecionada no TDBGrid
     if not dbg_lancamento.DataSource.DataSet.IsEmpty then
     begin
-      // Obt√©m o valor da coluna que cont√©m o ID da linha selecionada
+      // ObtÈm o valor da coluna que contÈm o ID da linha selecionada
       ItemId := dbg_lancamento.DataSource.DataSet.FieldByName('Autoincrem_PedidosProdutos').AsInteger;
       edt_pro_cod.Text := dbg_lancamento.DataSource.DataSet.FieldByName('Codigo').AsString;
       edt_pro_descr.text := dbg_lancamento.DataSource.DataSet.FieldByName('Descricao').AsString;
@@ -162,7 +162,7 @@ begin
 
        if recordcount = 0 then
        begin
-         showMessage('Cliente n√£o encontrado');
+         showMessage('Cliente n„o encontrado');
          edt_cli_nome.clear;
          edt_cli_codigo.clear;
        end
@@ -192,7 +192,7 @@ end;
 
 procedure TF_PDV.BloqueiaCampos;
 begin
-  //bloqueia os campos at√© que se inicie a venda
+  //bloqueia os campos atÈ que se inicie a venda
   edt_pro_descr.enabled := false;
   edt_pro_preco.enabled := false;
   edt_pro_cod.enabled := false;
@@ -207,7 +207,7 @@ end;
 
 procedure TF_PDV.LiberaCampos;
 begin
-  //bloqueia os campos at√© que se inicie a venda
+  //bloqueia os campos atÈ que se inicie a venda
   edt_pro_descr.enabled := true;
   edt_pro_preco.enabled := true;
   edt_pro_cod.enabled := true;
@@ -261,7 +261,7 @@ end;
 
 procedure TF_PDV.UpdateLista;
 begin
-//atualiza a visualiza√ß√£o dos itens no pedido
+//atualiza a visualizaÁ„o dos itens no pedido
   dataMod.QRY_listarPedido.close;
   dataMod.QRY_listarPedido.open;
 
@@ -299,7 +299,7 @@ begin
 
        if recordcount = 0 then
        begin
-         showMessage('Produto n√£o encontrado');
+         showMessage('Produto n„o encontrado');
          edt_pro_descr.clear;
          edt_pro_preco.clear;
          edt_pro_cod.clear;
@@ -333,10 +333,10 @@ end;
 
 procedure TF_PDV.edt_pro_qtdKeyPress(Sender: TObject; var Key: Char);
 begin
-  // Verifica se o caractere n√£o √© um n√∫mero (0-9) ou Backspace
+  // Verifica se o caractere n„o È um n˙mero (0-9) ou Backspace
   if not (Key in ['0'..'9', #8]) then
   begin
-    // Se n√£o for um n√∫mero, impede a entrada do caractere
+    // Se n„o for um n˙mero, impede a entrada do caractere
     Key := #0;
   end;
   
@@ -387,7 +387,7 @@ begin
     open;
   end;
 
-  //Se n√£o existe a venda, inicia uma nova venda
+  //Se n„o existe a venda, inicia uma nova venda
   if QRY_VerificaVenda.recordcount = 0  then
   begin
     tb_pedido.active := true;

@@ -37,6 +37,7 @@ type
     tb_pedidoValorTotal: TBCDField;
     QRY_Itens: TFDQuery;
     btnEditar: TButton;
+    QRY_CancelaVenda: TFDQuery;
     procedure edt_cli_codigoKeyPress(Sender: TObject; var Key: Char);
     procedure edt_pro_codKeyPress(Sender: TObject; var Key: Char);
     procedure BloqueiaCampos;
@@ -44,6 +45,7 @@ type
     procedure IniciaVendas;
     procedure ProdutosAdd;
     procedure UpdateLista;
+    procedure ReabrirVenda;
     procedure FormCreate(Sender: TObject);
     procedure btn_iniciar_vendaClick(Sender: TObject);
     procedure btn_pro_addClick(Sender: TObject);
@@ -53,6 +55,14 @@ type
     procedure btnEditarClick(Sender: TObject);
     procedure edt_pro_qtdExit(Sender: TObject);
     procedure edt_cli_nomeChange(Sender: TObject);
+    procedure dbg_lancamentoKeyPress(Sender: TObject; var Key: Char);
+    procedure btn_remove_itemClick(Sender: TObject);
+    procedure dbg_lancamentoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure btn_cancelar_vendaClick(Sender: TObject);
+    procedure btn_gravar_vendaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -63,6 +73,7 @@ type
     ItemId, qtd: Integer;
     NomeProduto : string;
     preço : double;
+    podeFechar : bool;
   end;
 
 var
@@ -102,8 +113,68 @@ begin
 
 end;
 
+procedure TF_PDV.btn_cancelar_vendaClick(Sender: TObject);
+begin
+  with QRY_CancelaVenda do
+  begin
+    close;
+    SQL.Clear;
+    SQL.Add('Delete from pedidosprodutos where NumeroPedido = :numPedido');
+    ParamByName('numPedido').Value := CodigoVenda;
+    execSQL;
+  end;
+
+  with QRY_CancelaVenda do
+  begin
+    close;
+    SQL.Clear;
+    SQL.Add('Delete from pedidosdadosgerais where NumeroPedido = :numPedido');
+    ParamByName('numPedido').Value := CodigoVenda;
+    execSQL;
+  end;
+
+  podeFechar := true;
+
+  ShowMessage('Pedido cancelado com sucesso!');
+
+  CodigoVenda := '0';
+  with DataMod.QRY_ListarPedido do
+  begin
+    close;
+    SQL.Clear;
+    SQL.Add('select * from view_listarpedido');
+    ParamByName('numPedido').Value := CodigoVenda;
+    execSQL;
+  end;
+
+  DataMod.QRY_ListarPedido.Close;
+  BloqueiaCampos;
+
+end;
+
+procedure TF_PDV.btn_gravar_vendaClick(Sender: TObject);
+begin
+  podeFechar := true;
+
+  ShowMessage('Pedido gravado com sucesso!');
+
+  CodigoVenda := '0';
+  with DataMod.QRY_ListarPedido do
+  begin
+    close;
+    SQL.Clear;
+    SQL.Add('select * from view_listarpedido');
+    ParamByName('numPedido').Value := CodigoVenda;
+    execSQL;
+  end;
+
+  DataMod.QRY_ListarPedido.Close;
+  BloqueiaCampos;
+end;
+
 procedure TF_PDV.btn_iniciar_vendaClick(Sender: TObject);
 begin
+  edt_cli_codigo.Enabled := false;
   IniciaVendas;
 end;
 
@@ -116,6 +187,26 @@ begin
     exit;
   end;
   produtosAdd;
+end;
+
+procedure TF_PDV.btn_remove_itemClick(Sender: TObject);
+var
+  item, quantidade : integer;
+begin
+  item := dataMod.QRY_ListarPedido.FieldByName('Autoincrem_PedidosProdutos').Value;
+  with QRY_Itens do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM pedidosprodutos WHERE Autoincrem = :id');
+    ParamByName('id').Value := item;
+    ExecSQL;
+  end;
+
+  ShowMessage ('Produto excluído com sucesso!');
+  //atualiza listagem de itens no pedido
+  UpdateLista;
+
 end;
 
 procedure TF_PDV.dbg_lancamentoDblClick(Sender: TObject);
@@ -145,6 +236,23 @@ begin
   end;
 end;
 
+
+procedure TF_PDV.dbg_lancamentoKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_DELETE then
+  begin
+    btn_remove_itemClick(Sender);
+  end;
+end;
+
+procedure TF_PDV.dbg_lancamentoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key = #13 then
+  begin
+    dbg_lancamentoDblClick(self);
+  end;
+end;
 
 procedure TF_PDV.edt_cli_codigoKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -258,6 +366,66 @@ begin
 
 end;
 
+procedure TF_PDV.ReabrirVenda;
+begin
+  podeFechar := false;
+  F_PDV.caption := 'Venda: ' + CodigoVenda;
+
+  tb_pedido.active := true;
+  while not tb_pedido.Locate('NumeroPedido', CodigoVenda, []) do
+  begin
+    if MessageDlg('Id não encontrado. Deseja reabrir uma venda?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    begin
+      CodigoVenda := InputBox('Informe o id da venda', 'Digite o id:', '');
+      ReabrirVenda;
+    end else
+    begin
+      exit;
+    end;
+
+
+  end;
+
+  edt_cli_codigo.text := tb_pedidoCodigoCliente.AsString;
+  with DataMod.QRY_Cli do
+     begin
+       close;
+       SQL.clear;
+       SQL.add('select * from clientes ');
+       SQL.add(' where Codigo = :codigo ');
+       ParamByName('codigo').value :=  edt_cli_codigo.text;
+       open;
+
+       if recordcount = 0 then
+       begin
+         showMessage('Cliente não encontrado');
+         edt_cli_nome.clear;
+         edt_cli_codigo.clear;
+       end
+       else if recordcount = 1 then
+       begin
+         edt_cli_nome.text := dataMod.QRY_cliNome.AsString;
+       end;
+
+
+
+
+     end;
+
+     with DataMod.QRY_ListarPedido do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('SELECT * FROM view_ListarPedido');
+        SQL.Add('WHERE NumeroPedido_PedidosDadosGerais = :codigo');
+        ParamByName('codigo').Value := CodigoVenda;
+        Open;
+      end;
+
+      UpdateLista;
+
+end;
+
 procedure TF_PDV.UpdateLista;
 begin
 //atualiza a visualização dos itens no pedido
@@ -352,11 +520,39 @@ begin
 
 end;
 
-procedure TF_PDV.FormCreate(Sender: TObject);
+procedure TF_PDV.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
+  // Adicione sua lógica aqui para determinar se o formulário pode ser fechado
+  if podeFechar then
+  begin
+    CanClose := True; // Permite o fechamento do formulário
+
+  end
+  else
+  begin
+    CanClose := false;
+    ShowMessage ('É necessário gravar a venda ou cancelar a venda para sair');
+  end;
+end;
+
+procedure TF_PDV.FormCreate(Sender: TObject);
+
+begin
+  podeFechar := true;
   BloqueiaCampos;
   btnEditar.Enabled := false;
   btn_iniciar_venda.Enabled := false;
+
+
+end;
+
+procedure TF_PDV.FormShow(Sender: TObject);
+begin
+  if MessageDlg('Deseja reabrir uma venda?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    CodigoVenda := InputBox('Informe o id da venda', 'Digite o id:', '');
+    ReabrirVenda;
+  end;
 end;
 
 procedure TF_PDV.IniciaVendas;
@@ -364,16 +560,14 @@ procedure TF_PDV.IniciaVendas;
 
 begin
   //Desbloqueia campos
+  podeFechar := false;
   LiberaCampos;
   if CodigoVenda = '' then
   begin
     DataPedido := FormatDateTime('yymmdd', Date);
     F_PDV.caption := 'Venda: NOVA VENDA';
-  end
-  else
-  begin
-     F_PDV.caption := 'Venda: ' + CodigoVenda;
   end;
+
 
   //verificando se existe a venda
   with QRY_VerificaVenda do
