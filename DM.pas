@@ -66,7 +66,7 @@ procedure TDataMod.DataModuleCreate(Sender: TObject);
 var
   ArquivoINI: TINIFile;
   AppPath, IniFileName: string;
-  HostName, Database, UserName, Password: string;
+  HostName, Database, UserName, Password, VendorLib: string;
 begin
  AppPath := ExtractFileDir(ParamStr(0));
  // Agora, você pode construir o caminho completo para o arquivo INI
@@ -81,16 +81,17 @@ begin
   begin
     ShowMessage('O arquivo config.ini não foi encontrado.');
   end;
-  //HostName := ArquivoINI.ReadString('MySQL', 'Server', 'localhost');
+  HostName := ArquivoINI.ReadString('MySQL', 'Server', 'localhost');
   Database := ArquivoINI.ReadString('MySQL', 'Database', 'minha_base_de_dados');
   UserName := ArquivoINI.ReadString('MySQL', 'User_Name', 'meu_usuario');
   Password := ArquivoINI.ReadString('MySQL', 'Password', 'minha_senha');
+  VendorLib := ArquivoINI.ReadString('MySQL', 'VendorLib', 'link');
 
-  
   conect.Params.Values['Database'] := Database;
   conect.Params.Values['User_Name'] := UserName;
   conect.Params.Values['Password'] := Password;
-  //conect.params.Values['Server'] := HostName;
+  mysqlLink.VendorLib := VendorLib;
+  conect.params.Values['Server'] := HostName;
 
   try
     conect.Connected := True; // Tente estabelecer a conexão
@@ -101,17 +102,17 @@ begin
       // A conexão está ativa; você pode executar consultas ou outras operações aqui.
     end
     else
-      ShowMessage('A conexão não pôde ser estabelecida.');
+      ShowMessage('A conexão não pôde ser estabelecida, verifique os dados do arquivo config.ini');
 
   except
     on E: EFDDBEngineException do
     begin
       ShowMessage('Erro ao conectar ao banco de dados: ' + E.Message);
-      // Trate o erro de conexão aqui.
+
     end;
   end;
 
-  
+
   ArquivoINI.Free;
 
 end;
